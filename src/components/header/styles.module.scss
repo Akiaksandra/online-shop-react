@@ -1,0 +1,38 @@
+.header {
+  background-color: #008C9E;
+  padding: 20px 20px 10px;
+}
+  .headerConstant {
+    display: flex;
+    justify-content: space-between;
+  }
+  .headerInput {
+    max-width: 760px;
+    width: 100%;
+    background-color: transparent;
+    :global(.MuiOutlinedInput-root) {
+      background-color: white;
+    }
+    :global(.MuiOutlinedInput-adornedEnd) {
+      padding-right: 0;
+    }
+  }
+  .headerInput div {
+    margin-right: 10px;
+  }
+  .headerInput input {
+    padding: 10px 15px;
+    background-color: white;
+    border-radius: 2px;
+}
+  .headerTabs {
+    :global(.MuiButton-root) {
+      margin-top: 10px;
+      border-radius: 0;
+      background-color: rgba(0, 187, 211, 1);
+      color: white;
+      padding: 13px;
+    }
+
+  }
+  

@@ -1,0 +1,47 @@
+.filter-price-input {
+  min-width: 30px;
+  max-width: 60px;
+  width: auto;
+  padding: 5px;
+  margin: 0 5px;
+  border-radius: 2px;
+  border: none;
+  height: 20px;
+  &::-webkit-outer-spin-button, &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+    } 
+}
+
+.header-filters {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 15px;
+  max-width: 550px;
+  flex-wrap: wrap;
+}
+
+.manufactures {
+  &-container {
+    position: relative;
+  }
+  &-list {
+    position: absolute;
+    background-color: white;
+    top: 100%;
+    opacity: 0;
+    padding-left: 10px;
+    transition: opacity 0.5s;
+    z-index: -10;
+    width: 100%;
+    cursor: none;
+  }
+  &-container:hover &-list {
+    opacity: 1;
+    cursor: pointer;
+    z-index: 10;
+  }
+}
+   
