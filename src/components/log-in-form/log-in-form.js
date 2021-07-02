@@ -42,7 +42,7 @@ const LogInForm =(() => {
 
   if (errorUsers) return <ErrorModal errorText = {errorUsers} />
 
-  if (currentUser) return <SuccessModal text = {"Вы вошли в систему!"} needCartRequest = {needCartRequest}/>
+  if (currentUser) return <SuccessModal text = {"Вы вошли в систему!"} needCartRequest = {needCartRequest} needClearFilters = {currentUser.isAdmin} />
 
   return (
     <div className={classes.paper} >

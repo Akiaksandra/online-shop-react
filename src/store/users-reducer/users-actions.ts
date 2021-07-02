@@ -1,28 +1,32 @@
 import {FETCH_ERROR_USER, FETCH_START_USER, FETCH_USER_SUCCESS,  LOGOUT_USER_SUCCESS, CLEAR_USERS_ERROR, FETCH_USER_CART_SUCCESS, FETCH_ORDERS_HISTORY_SUCCESS, CLEAR_ORDERS_HISTORY, SET_CURRENT_ORDER_SUCCESS, CLEAR_CURRENT_ORDER } from './user-consts';
-import { getResource, postResource, updateResourceId } from '../../server'
+import { getResource, postResource, updateResourceId } from '../../server';
 
-const fetchStartAction = () => ({ type: FETCH_START_USER });
+import { ICurrentUser, UserCart, OrdersHistory, Order, AllProducts } from '../../types/store-types';
+import { FetchErrorAction, FetchStartAction, FetchUserSuccessAction, FetchUserCartSuccessAction, FetchOrdersHistorySuccessAction, SetCurrentOrderSuccessAction, ClearUsersErrorAction, ClearOrdersHistoryAction, LogOutAction, ClearCurrentOrderAction, UserActionTypes } from '../../types/action-types';
+import { Dispatch } from 'redux';
 
-const fetchErrorAction = (payload) => {
-  return ({ type: FETCH_ERROR_USER, payload })
-}
+const fetchStartAction = (payload: string = ""): FetchStartAction => ({ type: FETCH_START_USER, payload });
 
-const fetchUserSuccessAction = (payload) => ({ type: FETCH_USER_SUCCESS, payload });
+const fetchErrorAction = (payload: string): FetchErrorAction => ({ type: FETCH_ERROR_USER, payload })
 
-const fetchUserCartSuccessAction = (payload) => ({ type: FETCH_USER_CART_SUCCESS, payload });
+const fetchUserSuccessAction = (payload: ICurrentUser): FetchUserSuccessAction => ({ type: FETCH_USER_SUCCESS, payload });
 
-const fetchOrdersHistorySuccessAction = (payload) => ({ type: FETCH_ORDERS_HISTORY_SUCCESS, payload });
+const fetchUserCartSuccessAction = (payload: UserCart): FetchUserCartSuccessAction => ({ type: FETCH_USER_CART_SUCCESS, payload });
 
-const setCurrentOrderSuccessAction = (payload) => ({ type: SET_CURRENT_ORDER_SUCCESS, payload });
+const fetchOrdersHistorySuccessAction = (payload: OrdersHistory): FetchOrdersHistorySuccessAction => ({ type: FETCH_ORDERS_HISTORY_SUCCESS, payload });
 
-export const clearUsersErrorAction = () => ({ type: CLEAR_USERS_ERROR });
-export const clearOrdersHistoryAction = () => ({ type: CLEAR_ORDERS_HISTORY });
-export const clearCurrentOrderAction = () => ({ type: CLEAR_CURRENT_ORDER });
+const setCurrentOrderSuccessAction = (payload: Order): SetCurrentOrderSuccessAction => ({ type: SET_CURRENT_ORDER_SUCCESS, payload });
 
-export const logOutAction = () => ({ type: LOGOUT_USER_SUCCESS });
+export const clearUsersErrorAction = (payload: string = ""): ClearUsersErrorAction => ({ type: CLEAR_USERS_ERROR, payload });
 
-export const checkEmailAndPassword = (email, password) => {
-  return async dispatch => {
+export const clearOrdersHistoryAction = (payload: string = ""): ClearOrdersHistoryAction => ({ type: CLEAR_ORDERS_HISTORY, payload });
+
+export const clearCurrentOrderAction = (payload: string = ""): ClearCurrentOrderAction => ({ type: CLEAR_CURRENT_ORDER, payload});
+
+export const logOutAction = ( payload: string = "" ): LogOutAction => ({ type: LOGOUT_USER_SUCCESS, payload  });
+
+export const checkEmailAndPassword = (email: string, password: string) => {
+  return async (dispatch: Dispatch<UserActionTypes>) => {
     dispatch(fetchStartAction());
     try {
       const filterParams = `"email" : "${email}","password" : "${password}"`;
@@ -36,22 +40,22 @@ export const checkEmailAndPassword = (email, password) => {
   }
 }  
 
-export const fetchUserCart = (id) => {
-  return async dispatch => {
+export const fetchUserCart = (id: string) => {
+  return async (dispatch: Dispatch<UserActionTypes>) => {
     dispatch(fetchStartAction());
     try {
       const filterParams = `"forUser" : "${id}"`;
       const response = await getResource('userscarts', filterParams);
       if (response.data.length > 0) dispatch(fetchUserCartSuccessAction(response.data[0]));
-      else dispatch(createUserCart(id))
+      else createUserCart(id)(dispatch)
     } catch (e) {
       dispatch(fetchErrorAction("Произошла ошибка при загрузке корзины"))
     }
   }
 }  
 
-export const fetchUserOrdersHistory = (id) => {
-  return async dispatch => {
+export const fetchUserOrdersHistory = (id: string) => {
+  return async (dispatch: Dispatch<UserActionTypes>) => {
     dispatch(fetchStartAction());
     try {
       const filterParams = `"forUser" : "${id}"`;
@@ -64,7 +68,7 @@ export const fetchUserOrdersHistory = (id) => {
 }
 
 export const fetchAllUOrdersHistory = () => {
-  return async dispatch => {
+  return async (dispatch: Dispatch<UserActionTypes>) => {
     dispatch(fetchStartAction());
     try {
       const response = await getResource('orders-history');
@@ -75,8 +79,8 @@ export const fetchAllUOrdersHistory = () => {
   }
 }
 
-const createUserCart = (id) => {
-  return async dispatch => {
+const createUserCart = (id: string) => {
+  return async (dispatch: Dispatch<UserActionTypes>) => {
     dispatch(fetchStartAction());
     try {
       const data = `{"forUser" : "${id}", "products" : []}`
@@ -88,8 +92,9 @@ const createUserCart = (id) => {
   }
 }
 
-export const createNewOrder = (data ) => {
-  return async dispatch => {
+export const createNewOrder = (data: Order) => {
+  console.log('data: ', data);
+  return async (dispatch: Dispatch<UserActionTypes>) => {
     dispatch(fetchStartAction());
     try {
       const response = await postResource('orders-history', data);
@@ -100,8 +105,8 @@ export const createNewOrder = (data ) => {
   }
 }
 
-export const updateUserCart = (data, id) => {
-  return async dispatch => {
+export const updateUserCart = (data: { products: AllProducts}, id: string) => {
+  return async (dispatch: Dispatch<UserActionTypes>) => {
     dispatch(fetchStartAction());
     try {
       const response = await updateResourceId('userscarts', data, id);
@@ -112,12 +117,13 @@ export const updateUserCart = (data, id) => {
   }
 }
 
-export const updateOrder = (data, id, userId) => {
-  return async dispatch => {
+export const updateOrder = (data: Order, id: string, userId: string) => {
+  console.log('data: ', data);
+  return async (dispatch: Dispatch<UserActionTypes>) => {
     dispatch(fetchStartAction());
     try {
       updateResourceId('orders-history', data, id);
-      dispatch(fetchUserOrdersHistory(userId));     
+      fetchUserOrdersHistory(userId)(dispatch);     
     } catch (e) {
       dispatch(fetchErrorAction("Произошла ошибка при работе с заказами"))
     }

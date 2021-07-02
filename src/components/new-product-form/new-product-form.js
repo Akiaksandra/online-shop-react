@@ -52,6 +52,7 @@ const NewProductForm = (() => {
   const dispatch = useDispatch();
   const classes = useStyles();
   const { currentProduct, loading, errorProducts } = useSelector(state => state.products);
+  const { aim } = useSelector(state => state.modal)
 
   useEffect(() => {
     if ( currentProduct ) {
@@ -82,15 +83,19 @@ const NewProductForm = (() => {
     currentValues = currentProduct;
   }
 
-  if (loading) return <LoadingModal text = {"Происходит редактирование товара..."} />
+  if (loading && aim === "editProduct") return <LoadingModal text = {"Происходит редактирование товара..."} />
 
-  if (!currentProduct) return <SuccessModal text = {"Товар успешно отредактирован!"}/>
+  if (loading && aim === "newProduct") return <LoadingModal text = {"Происходит создание товара..."} />
+
+  if (!currentProduct && aim === "editProduct") return <SuccessModal text = {"Товар успешно отредактирован!"}/>
+
+  // if (aim === "newProduct") return <SuccessModal text = {"Товар успешно добавлен!"}/>
 
   if (errorProducts) return <ErrorModal errorText = {errorProducts} />
 
   return (
-    <div className={classes.paper} style = {{maxWidth: "500px", height: "100%"}}>
-    <h2 className ="transition-modal-title">Добавление нового товара</h2>
+    <div className={classes.paper} style = {{maxWidth: "500px", height: "100vh"}}>
+    <h2 className ="transition-modal-title"> {aim === "newProduct" ? "Добавление нового товара" : "Редактирование товара" }</h2>
     <div className ="transition-modal-content">
       <Formik
         initialValues={currentValues}

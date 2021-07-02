@@ -1,6 +1,8 @@
 import {FETCH_ERROR_PRODUCT, FETCH_START_PRODUCT, FETCH_PRODUCTS_SUCCESS, FETCH_PRODUCT_SUCCESS, DELETE_CURRENT_PRODUCT, SORT_PRODUCTS, FILTER_PRODUCTS, CLEAR_PRODUCTS_ERROR, CLEAR_FILTERS_ACTION } from './product-consts';
 
-const initFilters = {
+import { IFilterParams,IProducts } from '../../types/store-types'
+
+const initFilters: IFilterParams = {
   category: "all",
   minPrice: 1,
   maxPrice: 100000,
@@ -16,7 +18,7 @@ const initFilters = {
   search: "",
 }
 
-const defaultState = {
+const defaultState: IProducts = {
   allProducts: [],
   currentProduct: null,
   loading: false,
@@ -25,7 +27,7 @@ const defaultState = {
   filterParams: initFilters,
 };
 
-const productReducer = (state = defaultState, action) => {
+const productReducer = (state = defaultState, action:any):IProducts => {
   switch(action.type) {
     case FETCH_START_PRODUCT:
       return {...state, loading: true};

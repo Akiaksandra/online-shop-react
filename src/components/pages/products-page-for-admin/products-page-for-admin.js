@@ -97,7 +97,7 @@ export default function ProductsPageForAdmin() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(clearFilters())
+    // dispatch(clearFilters())
     return () => dispatch(clearProductsErrorAction())
   }, []);
 

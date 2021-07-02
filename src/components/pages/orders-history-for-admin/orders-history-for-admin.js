@@ -82,7 +82,7 @@ function EnhancedTableHead(props) {
 
 export default function OrdersHistoryForAdmin() {
 
-  const { ordersHistory, loading, errorUsers } = useSelector(state => state.users);
+  const { ordersHistory,  loading, errorUsers } = useSelector(state => state.users);
 
   const [order, setOrder] = useState('asc');
   const [orderBy, setOrderBy] = useState('name');
@@ -96,7 +96,7 @@ export default function OrdersHistoryForAdmin() {
     dispatch(fetchAllUOrdersHistory())
   }, []);
 
-  const rows = ordersHistory ? ordersHistory.map(el => createData(el)) : null;
+  const rows = ordersHistory ? ordersHistory.map(el => createData(el)) : [];
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';
@@ -147,7 +147,7 @@ export default function OrdersHistoryForAdmin() {
                       hover
                       role="checkbox"
                       tabIndex={-1}
-                      // key={row._id}
+                      key={row.orderId}
                     >
                       <TableCell component="th" id={labelId} scope="row">
                         {row.orderId}
@@ -171,7 +171,7 @@ export default function OrdersHistoryForAdmin() {
         <TablePagination
           rowsPerPageOptions={[5, 10, 25]}
           component="div"
-          count={ ordersHistory && rows.length}
+          count={ rows.length}
           rowsPerPage={rowsPerPage}
           page={page}
           onChangePage={handleChangePage}

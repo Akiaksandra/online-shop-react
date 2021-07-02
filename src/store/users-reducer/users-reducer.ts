@@ -1,6 +1,8 @@
 import { FETCH_START_USER, FETCH_ERROR_USER, LOGOUT_USER_SUCCESS, FETCH_USER_CART_SUCCESS, FETCH_USER_SUCCESS, CLEAR_USERS_ERROR, FETCH_ORDERS_HISTORY_SUCCESS, CLEAR_ORDERS_HISTORY, SET_CURRENT_ORDER_SUCCESS, CLEAR_CURRENT_ORDER} from './user-consts';
+import { UserActionTypes } from '../../types/action-types';
+import { IUsers } from '../../types/store-types'
 
-const defaultState = {
+const defaultState: IUsers = {
   currentUser: null,
   ordersHistory: null,    
   userCart: null,
@@ -9,8 +11,8 @@ const defaultState = {
   isLogin: false,
   currentOrder: false,
 };
-
-const usersReducer = (state = defaultState, action) => {
+ // ТИПИЗАЦИЯ action: UserActionTypes !!!!!!!!!
+const usersReducer = (state = defaultState, action: any): IUsers => {
   switch(action.type) {
     case FETCH_START_USER:
     return {...state, loading: true};
@@ -23,7 +25,7 @@ const usersReducer = (state = defaultState, action) => {
     case CLEAR_CURRENT_ORDER:
       return {...state, currentOrder: false};         
     case LOGOUT_USER_SUCCESS: // РАЗЛОГИН
-      return {...state,  loading: false, isLogin: false, currentUser: null, userCart: null, ordersHistory: null, isAdmin: false, currentOrder: false};    
+      return {...state,  loading: false, isLogin: false, currentUser: null, userCart: null, ordersHistory: null, currentOrder: false};    
     case FETCH_USER_CART_SUCCESS: // Получение корзины юзера
       return {...state,  loading: false, userCart: action.payload};
     case FETCH_ORDERS_HISTORY_SUCCESS: // Получение корзины юзера

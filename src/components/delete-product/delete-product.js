@@ -9,7 +9,7 @@ import LoadingModal from '../modal/loading-modal';
 import SuccessModal from '../modal/success-modal';
 import ErrorModal from '../modal/error-modal';
 
-const DeleteProductFunc = (() => {
+const DeleteProductFunc = () => {
   
   const { currentProduct, loading, errorProducts } = useSelector(state => state.products)
 
@@ -44,6 +44,6 @@ const DeleteProductFunc = (() => {
     </div>
   </div>
   )
-})
+}
 
 export default DeleteProductFunc;

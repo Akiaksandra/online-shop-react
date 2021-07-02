@@ -13,6 +13,7 @@ const TransitionsModal = () => {
   const classes = useStyles();
 
   const { isOpenModal, aim } = useSelector(state => state.modal)
+  
 
   const dispatch = useDispatch();
   

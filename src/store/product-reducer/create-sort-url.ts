@@ -1,4 +1,6 @@
-const createSortUrl = (sort) => {
+import { SortParam } from '../../types/store-types'
+
+const createSortUrl = (sort: SortParam): string => {
   if (sort) {
     switch(sort) {
       case ("data_down"):
@@ -11,9 +13,9 @@ const createSortUrl = (sort) => {
         return `&h={"$orderby": {"price": -1 }}`;
       case ("price_up"):
         return `&h={"$orderby": {"price": 1 }}`;
-      default: return null  
+      default: return ""
     }
-  }
+  } else return "";
 }
 
 export default createSortUrl;

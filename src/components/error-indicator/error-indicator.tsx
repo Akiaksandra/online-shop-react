@@ -3,7 +3,7 @@ import React from 'react';
 import './error-indicator.scss';
 import icon from './death-star.png';
 
-const ErrorIndicator = ({ errorText }) => {
+const ErrorIndicator: React.FC<{ errorText:string }> = ({ errorText }) => {
   return (
     <div className="error-indicator">
       <img src={icon} alt="error icon"/>
