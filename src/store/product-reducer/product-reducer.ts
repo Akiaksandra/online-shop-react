@@ -1,6 +1,7 @@
 import {FETCH_ERROR_PRODUCT, FETCH_START_PRODUCT, FETCH_PRODUCTS_SUCCESS, FETCH_PRODUCT_SUCCESS, DELETE_CURRENT_PRODUCT, SORT_PRODUCTS, FILTER_PRODUCTS, CLEAR_PRODUCTS_ERROR, CLEAR_FILTERS_ACTION } from './product-consts';
 
 import { IFilterParams,IProducts } from '../../types/store-types'
+import { ProductsActionTypes, ProductTypesNames } from '../../types/action-types';
 
 const initFilters: IFilterParams = {
   category: "all",
@@ -27,25 +28,25 @@ const defaultState: IProducts = {
   filterParams: initFilters,
 };
 
-const productReducer = (state = defaultState, action:any):IProducts => {
+const productReducer = (state = defaultState, action:ProductsActionTypes):IProducts => {
   switch(action.type) {
-    case FETCH_START_PRODUCT:
+    case ProductTypesNames.FETCH_START_PRODUCT:
       return {...state, loading: true};
-    case FETCH_ERROR_PRODUCT:
+    case ProductTypesNames.FETCH_ERROR_PRODUCT:
       return {...state, loading: false, errorProducts: action.payload}; 
-    case CLEAR_PRODUCTS_ERROR:
+    case ProductTypesNames.CLEAR_PRODUCTS_ERROR:
       return {...state, errorProducts: false};        
-    case FETCH_PRODUCTS_SUCCESS: // Получение товаров
+    case ProductTypesNames.FETCH_PRODUCTS_SUCCESS: // Получение товаров
       return {...state, loading: false, allProducts: action.payload};
-    case FETCH_PRODUCT_SUCCESS: // Получение товарА
+    case ProductTypesNames.FETCH_PRODUCT_SUCCESS: // Получение товарА
       return {...state, loading: false, currentProduct: action.payload};
-    case DELETE_CURRENT_PRODUCT: // Удаление текущего товара
+    case ProductTypesNames.DELETE_CURRENT_PRODUCT: // Удаление текущего товара
       return {...state, loading: false, currentProduct: null};
-    case SORT_PRODUCTS: // Добавление параметра сортировки
+    case ProductTypesNames.SORT_PRODUCTS: // Добавление параметра сортировки
       return {...state, loading: false, sortParam: action.payload};  
-    case FILTER_PRODUCTS: // Добавление параметра сортировки
+    case ProductTypesNames.FILTER_PRODUCTS: // Добавление параметра сортировки
       return {...state, loading: false, filterParams: action.payload}; 
-    case CLEAR_FILTERS_ACTION: // Добавление параметра сортировки
+    case ProductTypesNames.CLEAR_FILTERS_ACTION: // Добавление параметра сортировки
       return {...state, sortParam: 'data_down', filterParams: initFilters};       
     default: return state;  
   }

@@ -4,27 +4,27 @@ import createFilterUrl from './create-filter-url';
 import createSortUrl from './create-sort-url';
 
 import { AllProducts, IFilterParams, IProduct, SortParam } from '../../types/store-types';
-import { ClearFiltersAction, ClearProductsErrorAction, DeleteCurrentProduct, FetchErrorAction, FetchProductsSuccessAction, FetchProductSuccessAction, FetchStartAction, FilterProductsAction, ProductsActionTypes, SortProductsAction } from '../../types/action-types';
+import { ClearFiltersAction, ClearProductsErrorAction, DeleteCurrentProduct, FetchErrorAction, FetchProductsSuccessAction, FetchProductSuccessAction, FetchStartAction, FilterProductsAction, ProductsActionTypes, ProductTypesNames, SortProductsAction } from '../../types/action-types';
 import { Dispatch } from 'redux';
 
-const fetchStartAction = (payload: string = ""): FetchStartAction  => ({ type: FETCH_START_PRODUCT, payload });
+const fetchStartAction = (payload: string = ""): FetchStartAction  => ({ type: ProductTypesNames.FETCH_START_PRODUCT, payload });
 
 const fetchErrorAction = (payload: string =""): FetchErrorAction => {
-  return ({ type: FETCH_ERROR_PRODUCT, payload })
+  return ({ type: ProductTypesNames.FETCH_ERROR_PRODUCT, payload })
 }
 
-export const clearProductsErrorAction = (): ClearProductsErrorAction => ({ type: CLEAR_PRODUCTS_ERROR });
+export const clearProductsErrorAction = (): ClearProductsErrorAction => ({ type: ProductTypesNames.CLEAR_PRODUCTS_ERROR });
 
-const clearFiltersAction = (): ClearFiltersAction => ({ type: CLEAR_FILTERS_ACTION });
+const clearFiltersAction = (): ClearFiltersAction => ({ type: ProductTypesNames.CLEAR_FILTERS_ACTION });
 
-export const deleteCurrentProduct = (): DeleteCurrentProduct => ({ type: DELETE_CURRENT_PRODUCT });
+export const deleteCurrentProduct = (): DeleteCurrentProduct => ({ type: ProductTypesNames.DELETE_CURRENT_PRODUCT });
 
-const fetchProductsSuccessAction = (payload: AllProducts): FetchProductsSuccessAction => ({ type: FETCH_PRODUCTS_SUCCESS, payload });
+const fetchProductsSuccessAction = (payload: AllProducts): FetchProductsSuccessAction => ({ type: ProductTypesNames.FETCH_PRODUCTS_SUCCESS, payload });
 
-export const fetchProductSuccessAction = (payload: IProduct): FetchProductSuccessAction => ({ type: FETCH_PRODUCT_SUCCESS, payload });
+export const fetchProductSuccessAction = (payload: IProduct): FetchProductSuccessAction => ({ type: ProductTypesNames.FETCH_PRODUCT_SUCCESS, payload });
 
-export const sortProductsAction = (payload: SortParam): SortProductsAction => ({ type: SORT_PRODUCTS, payload});
-export const filterProductsAction = (payload: IFilterParams): FilterProductsAction => ({ type: FILTER_PRODUCTS, payload});
+export const sortProductsAction = (payload: SortParam): SortProductsAction => ({ type: ProductTypesNames.SORT_PRODUCTS, payload});
+export const filterProductsAction = (payload: IFilterParams): FilterProductsAction => ({ type: ProductTypesNames.FILTER_PRODUCTS, payload});
 
 export const fetchProducts = (sortValue: SortParam = "", filters: IFilterParams) => {
   return async (dispatch: Dispatch<ProductsActionTypes>)=> {

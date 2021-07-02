@@ -2,28 +2,28 @@ import {FETCH_ERROR_USER, FETCH_START_USER, FETCH_USER_SUCCESS,  LOGOUT_USER_SUC
 import { getResource, postResource, updateResourceId } from '../../server';
 
 import { ICurrentUser, UserCart, OrdersHistory, Order, AllProducts } from '../../types/store-types';
-import { FetchErrorAction, FetchStartAction, FetchUserSuccessAction, FetchUserCartSuccessAction, FetchOrdersHistorySuccessAction, SetCurrentOrderSuccessAction, ClearUsersErrorAction, ClearOrdersHistoryAction, LogOutAction, ClearCurrentOrderAction, UserActionTypes } from '../../types/action-types';
+import { FetchErrorAction, FetchStartAction, FetchUserSuccessAction, FetchUserCartSuccessAction, FetchOrdersHistorySuccessAction, SetCurrentOrderSuccessAction, ClearUsersErrorAction, ClearOrdersHistoryAction, LogOutAction, ClearCurrentOrderAction, UserActionTypes, UsersTypesNames } from '../../types/action-types';
 import { Dispatch } from 'redux';
 
-const fetchStartAction = (payload: string = ""): FetchStartAction => ({ type: FETCH_START_USER, payload });
+const fetchStartAction = (payload: string = ""): FetchStartAction => ({ type: UsersTypesNames.FETCH_START_USER, payload });
 
-const fetchErrorAction = (payload: string): FetchErrorAction => ({ type: FETCH_ERROR_USER, payload })
+const fetchErrorAction = (payload: string): FetchErrorAction => ({ type: UsersTypesNames.FETCH_ERROR_USER, payload })
 
-const fetchUserSuccessAction = (payload: ICurrentUser): FetchUserSuccessAction => ({ type: FETCH_USER_SUCCESS, payload });
+const fetchUserSuccessAction = (payload: ICurrentUser): FetchUserSuccessAction => ({ type: UsersTypesNames.FETCH_USER_SUCCESS, payload });
 
-const fetchUserCartSuccessAction = (payload: UserCart): FetchUserCartSuccessAction => ({ type: FETCH_USER_CART_SUCCESS, payload });
+const fetchUserCartSuccessAction = (payload: UserCart): FetchUserCartSuccessAction => ({ type: UsersTypesNames.FETCH_USER_CART_SUCCESS, payload });
 
-const fetchOrdersHistorySuccessAction = (payload: OrdersHistory): FetchOrdersHistorySuccessAction => ({ type: FETCH_ORDERS_HISTORY_SUCCESS, payload });
+const fetchOrdersHistorySuccessAction = (payload: OrdersHistory): FetchOrdersHistorySuccessAction => ({ type: UsersTypesNames.FETCH_ORDERS_HISTORY_SUCCESS, payload });
 
-const setCurrentOrderSuccessAction = (payload: Order): SetCurrentOrderSuccessAction => ({ type: SET_CURRENT_ORDER_SUCCESS, payload });
+const setCurrentOrderSuccessAction = (payload: Order): SetCurrentOrderSuccessAction => ({ type: UsersTypesNames.SET_CURRENT_ORDER_SUCCESS, payload });
 
-export const clearUsersErrorAction = (payload: string = ""): ClearUsersErrorAction => ({ type: CLEAR_USERS_ERROR, payload });
+export const clearUsersErrorAction = (payload: string = ""): ClearUsersErrorAction => ({ type: UsersTypesNames.CLEAR_USERS_ERROR, payload });
 
-export const clearOrdersHistoryAction = (payload: string = ""): ClearOrdersHistoryAction => ({ type: CLEAR_ORDERS_HISTORY, payload });
+export const clearOrdersHistoryAction = (payload: string = ""): ClearOrdersHistoryAction => ({ type: UsersTypesNames.CLEAR_ORDERS_HISTORY, payload });
 
-export const clearCurrentOrderAction = (payload: string = ""): ClearCurrentOrderAction => ({ type: CLEAR_CURRENT_ORDER, payload});
+export const clearCurrentOrderAction = (payload: string = ""): ClearCurrentOrderAction => ({ type: UsersTypesNames.CLEAR_CURRENT_ORDER, payload});
 
-export const logOutAction = ( payload: string = "" ): LogOutAction => ({ type: LOGOUT_USER_SUCCESS, payload  });
+export const logOutAction = ( payload: string = "" ): LogOutAction => ({ type: UsersTypesNames.LOGOUT_USER_SUCCESS, payload  });
 
 export const checkEmailAndPassword = (email: string, password: string) => {
   return async (dispatch: Dispatch<UserActionTypes>) => {

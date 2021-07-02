@@ -1,4 +1,5 @@
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
+import IProduct from ('../types/store-types')
 
 const url = "https://onlineshop-509e.restdb.io/rest/";
 const adminKey ="60b4a127318a330b62f588ad" ;
@@ -10,7 +11,7 @@ export const getResource = (dbName, filterParam = "", sortParam = "") => {
 
 export const postResource = (dbName, data) => axios.post(`${url}${dbName}`, data, {
   headers: { 'x-apikey': adminKey, 'Content-Type': 'application/json' }
-});
+}): AxiosResponse<IProduct[]>;
 
 export const putResource = (dbName, data, id) => axios.post(`${url}${dbName}/${id}`, data, {
   headers: { 'x-apikey': adminKey, 'Content-Type': 'application/json' }

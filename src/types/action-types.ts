@@ -20,88 +20,113 @@ export type ModalActionTypes = IOpenModalAction | ICloseModalAction;
 
 //========== ACTIONS-USERS ==============
 
+export enum UsersTypesNames {
+  FETCH_START_USER = 'FETCH_START_USER',
+  FETCH_ERROR_USER = 'FETCH_ERROR_USER',
+  FETCH_USER_SUCCESS = 'FETCH_USER_SUCCESS',
+  FETCH_USER_CART_SUCCESS = 'FETCH_USER_CART_SUCCESS',
+  FETCH_ORDERS_HISTORY_SUCCESS = 'FETCH_ORDERS_HISTORY_SUCCESS',
+  SET_CURRENT_ORDER_SUCCESS = 'SET_CURRENT_ORDER_SUCCESS',
+  CLEAR_USERS_ERROR = 'CLEAR_USERS_ERROR',
+  CLEAR_ORDERS_HISTORY = 'CLEAR_ORDERS_HISTORY',
+  CLEAR_CURRENT_ORDER = 'CLEAR_CURRENT_ORDER',
+  LOGOUT_USER_SUCCESS = 'LOGOUT_USER_SUCCESS',
+}
+
 export interface FetchStartAction {
-  type: typeof FETCH_START_USER | typeof FETCH_START_PRODUCT, 
+  type: UsersTypesNames.FETCH_START_USER | ProductTypesNames.FETCH_START_PRODUCT, 
   payload: string,
 }
 
 export interface FetchErrorAction {
-  type: typeof FETCH_ERROR_USER | typeof FETCH_ERROR_PRODUCT,
+  type: UsersTypesNames.FETCH_ERROR_USER | ProductTypesNames.FETCH_ERROR_PRODUCT,
   payload: Error,
 }
 
 export interface FetchUserSuccessAction {
-  type: typeof FETCH_USER_SUCCESS,
+  type: UsersTypesNames.FETCH_USER_SUCCESS,
   payload: ICurrentUser,
 }
 
 export interface FetchUserCartSuccessAction {
-  type: typeof FETCH_USER_CART_SUCCESS,
+  type: UsersTypesNames.FETCH_USER_CART_SUCCESS,
   payload: UserCart,
 }
 
 export interface FetchOrdersHistorySuccessAction {
-  type: typeof FETCH_ORDERS_HISTORY_SUCCESS,
+  type: UsersTypesNames.FETCH_ORDERS_HISTORY_SUCCESS,
   payload: OrdersHistory,
 }
 
 export interface SetCurrentOrderSuccessAction {
-  type: typeof SET_CURRENT_ORDER_SUCCESS,
+  type: UsersTypesNames.SET_CURRENT_ORDER_SUCCESS,
   payload: Order,
 }
 
 export interface ClearUsersErrorAction {
-  type: typeof CLEAR_USERS_ERROR,
+  type: UsersTypesNames.CLEAR_USERS_ERROR,
   payload: string,
 }
 
 export interface ClearOrdersHistoryAction {
-  type: typeof CLEAR_ORDERS_HISTORY,
+  type: UsersTypesNames.CLEAR_ORDERS_HISTORY,
   payload: string,
 }
 
 export interface ClearCurrentOrderAction {
-  type: typeof CLEAR_CURRENT_ORDER,
+  type: UsersTypesNames.CLEAR_CURRENT_ORDER,
   payload: string,
 }
 
 export interface LogOutAction {
-  type: typeof LOGOUT_USER_SUCCESS,
+  type: UsersTypesNames.LOGOUT_USER_SUCCESS,
   payload: string,
 }
 
 export type UserActionTypes = FetchStartAction | FetchErrorAction | FetchUserSuccessAction | FetchUserCartSuccessAction | FetchOrdersHistorySuccessAction | SetCurrentOrderSuccessAction | ClearUsersErrorAction | ClearOrdersHistoryAction | ClearCurrentOrderAction | LogOutAction;
 
 //========== ACTIONS-PRODUCTS ==============
+
+export enum ProductTypesNames {
+  CLEAR_PRODUCTS_ERROR = 'CLEAR_PRODUCTS_ERROR',
+  CLEAR_FILTERS_ACTION = 'CLEAR_FILTERS_ACTION',
+  DELETE_CURRENT_PRODUCT = 'DELETE_CURRENT_PRODUCT',
+  FETCH_PRODUCTS_SUCCESS = 'FETCH_PRODUCTS_SUCCESS',
+  FETCH_PRODUCT_SUCCESS = 'FETCH_PRODUCT_SUCCESS',
+  SORT_PRODUCTS = 'SORT_PRODUCTS',
+  FILTER_PRODUCTS = 'FILTER_PRODUCTS',
+  FETCH_START_PRODUCT = "FETCH_START_PRODUCT",
+  FETCH_ERROR_PRODUCT ="FETCH_ERROR_PRODUCT",
+}
 export interface ClearProductsErrorAction {
-  type: typeof CLEAR_PRODUCTS_ERROR,
+  type: ProductTypesNames.CLEAR_PRODUCTS_ERROR,
 }
 
 export interface ClearFiltersAction {
-  type: typeof CLEAR_FILTERS_ACTION,
+  type: ProductTypesNames.CLEAR_FILTERS_ACTION,
 }
 
 export interface DeleteCurrentProduct {
-  type: typeof DELETE_CURRENT_PRODUCT,
+  type: ProductTypesNames.DELETE_CURRENT_PRODUCT,
 }
 
 export interface FetchProductsSuccessAction {
-  type: typeof FETCH_PRODUCTS_SUCCESS,
+  type: ProductTypesNames.FETCH_PRODUCTS_SUCCESS,
   payload: AllProducts,
 }
 
 export interface FetchProductSuccessAction {
-  type: typeof FETCH_PRODUCT_SUCCESS,
+  type: ProductTypesNames.FETCH_PRODUCT_SUCCESS,
   payload: IProduct,
 }
 
 export interface SortProductsAction {
-  type: typeof SORT_PRODUCTS,
+  type: ProductTypesNames.SORT_PRODUCTS,
   payload: SortParam,
 }
 
 export interface FilterProductsAction {
-  type: typeof FILTER_PRODUCTS,
+  type: ProductTypesNames.FILTER_PRODUCTS,
   payload: IFilterParams,
 }
 

@@ -6,7 +6,7 @@ export const openModalAction = (payload: string):IOpenModalAction => {
   return ({ type: OPEN_MODAL, payload })
 };
 
-export const closeModalAction = (payload: string):ICloseModalAction => ({ type: CLOSE_MODAL, payload});
+export const closeModalAction = (payload: string = ""):ICloseModalAction => ({ type: CLOSE_MODAL, payload});
 
 export const openModal = (aim: string) => {
   return async (dispatch: Dispatch<ModalActionTypes>) => {

@@ -7,14 +7,6 @@ export interface IProduct {
   description: string,
   img: string,
   category:  string[],
-  file?: string,
-  _created?: string,
-  _changed?: string,
-  _createdby?: string,
-  _changedby?: string,
-  _version?: number,
-  _tags?: string,
-  _keywords?: Array<string>,
 }
 
 export type AllProducts = Array<IProduct>;
@@ -53,13 +45,6 @@ export interface OrderDileviryInfo {
     phone: number,
     initials: string,
     comment: string,
-    _created?: string,
-    _changed?: string,
-    _createdby?: string,
-    _changedby?: string,
-    _version?: number,
-    _tags?: string,
-    _keywords?: Array<string>,
 };
 
 export interface Order {
@@ -69,26 +54,12 @@ export interface Order {
   orderStatus: string,
   orderProducts: Array<IProduct>,
   orderDileviryInfo: OrderDileviryInfo,
-  _created?: string,
-  _changed?: string,
-  _createdby?: string,
-  _changedby?: string,
-  _version?: number,
-  _tags?: string,
-  _keywords?: Array<string>,
 }
 
 export interface UserCart {
   _id: string,
   forUser: string,
   products: Array<IProduct>,
-  _created?: string,
-  _changed?: string,
-  _createdby?: string,
-  _changedby?: string,
-  _version?: number,
-  _tags?: string,
-  _keywords?: Array<string>,
 };
 export type OrdersHistory = Array<Order>;
 
@@ -98,7 +69,7 @@ export type Aim = null | string;
 //========== STORE ==============
 export interface IProducts {
   allProducts: AllProducts,
-  currentProduct: Order | null,
+  currentProduct: IProduct | null,
   loading: Loading,
   errorProducts: Error,
   sortParam: SortParam,

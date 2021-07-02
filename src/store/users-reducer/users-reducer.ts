@@ -1,5 +1,5 @@
 import { FETCH_START_USER, FETCH_ERROR_USER, LOGOUT_USER_SUCCESS, FETCH_USER_CART_SUCCESS, FETCH_USER_SUCCESS, CLEAR_USERS_ERROR, FETCH_ORDERS_HISTORY_SUCCESS, CLEAR_ORDERS_HISTORY, SET_CURRENT_ORDER_SUCCESS, CLEAR_CURRENT_ORDER} from './user-consts';
-import { UserActionTypes } from '../../types/action-types';
+import { UserActionTypes, UsersTypesNames } from '../../types/action-types';
 import { IUsers } from '../../types/store-types'
 
 const defaultState: IUsers = {
@@ -12,27 +12,27 @@ const defaultState: IUsers = {
   currentOrder: false,
 };
  // ТИПИЗАЦИЯ action: UserActionTypes !!!!!!!!!
-const usersReducer = (state = defaultState, action: any): IUsers => {
+const usersReducer = (state = defaultState, action: UserActionTypes): IUsers => {
   switch(action.type) {
-    case FETCH_START_USER:
+    case UsersTypesNames.FETCH_START_USER:
     return {...state, loading: true};
-    case FETCH_ERROR_USER:
+    case UsersTypesNames.FETCH_ERROR_USER:
       return {...state, loading: false, errorUsers: action.payload};
-    case CLEAR_USERS_ERROR:
+    case UsersTypesNames.CLEAR_USERS_ERROR:
       return {...state, errorUsers: false};    
-    case CLEAR_ORDERS_HISTORY:
+    case UsersTypesNames.CLEAR_ORDERS_HISTORY:
       return {...state, ordersHistory: null};      
-    case CLEAR_CURRENT_ORDER:
+    case UsersTypesNames.CLEAR_CURRENT_ORDER:
       return {...state, currentOrder: false};         
-    case LOGOUT_USER_SUCCESS: // РАЗЛОГИН
+    case UsersTypesNames.LOGOUT_USER_SUCCESS: // РАЗЛОГИН
       return {...state,  loading: false, isLogin: false, currentUser: null, userCart: null, ordersHistory: null, currentOrder: false};    
-    case FETCH_USER_CART_SUCCESS: // Получение корзины юзера
+    case UsersTypesNames.FETCH_USER_CART_SUCCESS: // Получение корзины юзера
       return {...state,  loading: false, userCart: action.payload};
-    case FETCH_ORDERS_HISTORY_SUCCESS: // Получение корзины юзера
+    case UsersTypesNames.FETCH_ORDERS_HISTORY_SUCCESS: // Получение корзины юзера
       return {...state,  loading: false, ordersHistory: action.payload};   
-    case SET_CURRENT_ORDER_SUCCESS: // Текущий заказ
+    case UsersTypesNames.SET_CURRENT_ORDER_SUCCESS: // Текущий заказ
       return {...state,  loading: false, currentOrder: action.payload};            
-    case FETCH_USER_SUCCESS: // Получение текущего юзера
+    case UsersTypesNames.FETCH_USER_SUCCESS: // Получение текущего юзера
       return {...state, loading: false, currentUser: action.payload, isLogin: true};
     default: return state;  
   }

@@ -5,8 +5,9 @@ import ShoppingCartForUsers from '../pages/shopping-cart-for-users';
 import ProductPage from '../pages/product-page';
 import OrdersHistoryForUsers from '../pages/orders-history-for-users';
 import OrdersHistoryForAdmin from '../pages/orders-history-for-admin';
+import { AdminRoutes } from '../../types/route-types';
 
-export const adminRoutes = [
+export const adminRoutes: AdminRoutes = [
   {
     path: ORDERS_HISTORY,
     Component: OrdersHistoryForAdmin, 
