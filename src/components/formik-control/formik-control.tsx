@@ -5,7 +5,7 @@ import SelectList from './select';
 import Textarea from './textarea';
 import File from './file'
 
-const FormikControl = (props) => {
+const FormikControl: React.FC<any> = (props) => {
   const { control, ...rest } = props;
   switch (control) {
     case ("input"):

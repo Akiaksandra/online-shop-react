@@ -7,15 +7,17 @@ import { updateUserCart } from '../../../store/users-reducer/users-actions';
 import { openModal } from '../../../store/modal-reducer/modal-actions';
 import Spinner from '../../spinner';
 import ErrorIndicator from '../../error-indicator';
+import { useAppSelector } from '../../../types/hooks';
+import { IProduct } from '../../../types/store-types';
 
-const ProductPage = ({match}) => {
+const ProductPage: React.FC<any> = ({match}) => {
 
   const { id } = match.params;
   
   const dispatch = useDispatch();
 
-  const { currentProduct, loading, errorProducts } = useSelector(state => state.products);
-  const { isLogin, userCart } = useSelector(state => state.users);
+  const { currentProduct, loading, errorProducts } = useAppSelector(state => state.products);
+  const { isLogin, userCart } = useAppSelector(state => state.users);
 
   useEffect(() => {
     dispatch(fetchProduct(id));
@@ -26,15 +28,23 @@ const ProductPage = ({match}) => {
   }, []);  
 
   
-  const handleAddToCart = (event) => {
+  const handleAddToCart = (event: React.MouseEvent<HTMLButtonElement>): void => {
     const newItem = {...currentProduct};
-    const hasData = userCart.products.length > 0 ? userCart.products.reduce((acc, el) => el._id === newItem._id ? acc = el.count + 1 : acc, 1) : 1;
-    newItem.count = hasData;
+    const hasData = (): number => {
+      if (userCart) {
+        return userCart.products.length > 0 ? 
+        // @ts-ignore
+          userCart.products.reduce((acc: number, el: IProduct) => { return el._id === newItem._id ? acc = el.count + 1 : acc}, 1) 
+          : 1 
+      } else {
+        return 1;
+      }
+    };
+    newItem.count = hasData();
     let newProducts = null;
-    hasData === 1 ? newProducts = [...userCart.products, newItem] : newProducts = userCart.products.map(el => el._id === newItem._id ? newItem : el);
+    hasData() === 1 && userCart ? newProducts = [...userCart.products, newItem] : newProducts = userCart?.products.map(el => el._id === newItem._id ? newItem : el);
     const newData = {products: newProducts};
-    console.log('newData: ', newData);
-    dispatch(updateUserCart(JSON.stringify(newData), userCart._id));
+    dispatch(updateUserCart(JSON.stringify(newData), userCart ? userCart._id : ""));
   }
 
   const openLogin = () => dispatch(openModal("login"))

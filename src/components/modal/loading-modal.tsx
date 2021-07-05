@@ -1,7 +1,7 @@
 import React from 'react';
 import useStyles from './use-styles';
 
-const LoadingModal = ({ text }) => {
+const LoadingModal: React.FC<{text: string}> = ({ text }) => {
   const classes = useStyles();
   return (
   <div className={classes.paper}>

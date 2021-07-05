@@ -10,8 +10,11 @@ import { deleteCurrentProduct, updateProduct } from '../../store/product-reducer
 import LoadingModal from '../modal/loading-modal';
 import SuccessModal from '../modal/success-modal';
 import ErrorModal from '../modal/error-modal';
+import { useAppSelector } from '../../types/hooks';
+import { IProduct } from '../../types/store-types';
+import { ArrType } from '../../types/types';
 
-const initialValues = {
+const initialValues: IProduct = {
   title: '',
   category: [],
   price: '',
@@ -31,7 +34,7 @@ const validationSchema = Yup.object({
   img: Yup.string().required("Required!"),
 });
 
-const categorySelect = [
+const categorySelect: ArrType = [
   {value: "PC", label: "PC"},
   {value: "home", label: "Home"},
   {value: "electronic", label: "Electronic"},
@@ -39,7 +42,7 @@ const categorySelect = [
   {value: "sport", label: "Sport"}
 ]
 
-const manufactureSelect = [
+const manufactureSelect: ArrType = [
   {value: "samsung", label: "Samsung"},
   {value: "xiaomi", label: "Xiaomi"},
   {value: "lg", label: "LG"},
@@ -48,11 +51,11 @@ const manufactureSelect = [
   {value: "horizont", label: "Horizont"},
 ]
 
-const NewProductForm = (() => {
+const NewProductForm: React.FC = () => {
   const dispatch = useDispatch();
   const classes = useStyles();
-  const { currentProduct, loading, errorProducts } = useSelector(state => state.products);
-  const { aim } = useSelector(state => state.modal)
+  const { currentProduct, loading, errorProducts } = useAppSelector(state => state.products);
+  const { aim } = useAppSelector(state => state.modal)
 
   useEffect(() => {
     if ( currentProduct ) {
@@ -61,16 +64,16 @@ const NewProductForm = (() => {
     }
     }, [])  
   
-  const onSubmitFormNewProduct = async (values, onSubmitProp) => {
+  const onSubmitFormNewProduct = async (values: IProduct, onSubmitProp: any): Promise<void> => {
     onSubmitProp.setSubmitting(false);
     onSubmitProp.resetForm();
     const data = JSON.stringify(values)
     dispatch(addProduct(data))
   }  
 
-  const onSubmitFormEditProduct = async (values, onSubmitProp) => {
+  const onSubmitFormEditProduct = async (values: IProduct, onSubmitProp: any): Promise<void> => {
     onSubmitProp.setSubmitting(false);
-    await dispatch(updateProduct(values, values._id));
+    await dispatch(updateProduct(values, values._id || "")); // ts
     dispatch(deleteCurrentProduct())
   }
 
@@ -163,7 +166,7 @@ const NewProductForm = (() => {
     </div>
   </div>
   )
-})
+}
 
 export default NewProductForm;
 

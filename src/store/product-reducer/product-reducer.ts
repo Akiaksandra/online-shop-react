@@ -1,5 +1,3 @@
-import {FETCH_ERROR_PRODUCT, FETCH_START_PRODUCT, FETCH_PRODUCTS_SUCCESS, FETCH_PRODUCT_SUCCESS, DELETE_CURRENT_PRODUCT, SORT_PRODUCTS, FILTER_PRODUCTS, CLEAR_PRODUCTS_ERROR, CLEAR_FILTERS_ACTION } from './product-consts';
-
 import { IFilterParams,IProducts } from '../../types/store-types'
 import { ProductsActionTypes, ProductTypesNames } from '../../types/action-types';
 

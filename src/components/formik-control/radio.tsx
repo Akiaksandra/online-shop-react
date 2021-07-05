@@ -1,16 +1,17 @@
 import React from 'react';
-import { ErrorMessage, Field } from 'formik';
+import { ErrorMessage, Field, FieldAttributes } from 'formik';
 import TextError from './text-error';
 import { Radio } from '@material-ui/core';
+import { ArrType } from '../../types/types';
 
-const RadioButtons = (props) => {
+const RadioButtons: React.FC<{label: string, name: string, options: ArrType}> = (props) => {
   const {label, name, options, ...rest} = props;
   return (
     <div className="form-control">
     <div className="form-label">{label}</div> 
     <Field name={name} {...rest}>
         {
-        ({ field }) => {
+        ({ field }: FieldAttributes<any>) => {
          
           return options.map(option => {
             return (

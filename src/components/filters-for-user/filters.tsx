@@ -3,6 +3,7 @@ import {Button, Switch, FormGroup,  FormControlLabel, Checkbox} from '@material-
 import './filters.scss';
 import { useSelector, useDispatch } from 'react-redux';
 import { filterProductsAction } from '../../store/product-reducer/product-actions'
+import { useAppSelector } from '../../types/hooks';
 
 const manufactureSelect = [
   {value: "samsung", label: "Samsung"},
@@ -13,32 +14,32 @@ const manufactureSelect = [
   {value: "horizont", label: "Horizont"},
 ]
 
-const Filters = () => {
+const Filters:React.FC = () => {
 
   const dispatch = useDispatch();
 
-  const { filterParams } = useSelector(state => state.products);
-  const { manufacturer, availability } = useSelector(state => state.products.filterParams);
+  const { filterParams } = useAppSelector(state => state.products);
+  const { manufacturer, availability } = useAppSelector(state => state.products.filterParams);
 
-  const handleChangeMinPrice = (event) => {
-    const newMinPrice  = event.target.value
-    const newFilterParams = {...filterParams, minPrice: newMinPrice}
+  const handleChangeMinPrice = (event: React.FocusEvent<HTMLInputElement>): void => {
+    const newMinPrice  = +event.target.value;
+    const newFilterParams = {...filterParams, minPrice: newMinPrice};
     dispatch(filterProductsAction(newFilterParams));
   }
 
-  const handleChangeMaxPrice = (event) => {
-    const newMaxPrice  = event.target.value
-    const newFilterParams = {...filterParams, maxPrice: newMaxPrice}
+  const handleChangeMaxPrice = (event: React.FocusEvent<HTMLInputElement>): void => {
+    const newMaxPrice  = +event.target.value;
+    const newFilterParams = {...filterParams, maxPrice: newMaxPrice};
     dispatch(filterProductsAction(newFilterParams));
   }
 
-  const handleChangeAvailability = (event) => {
-    const newAvailability  = event.target.checked
+  const handleChangeAvailability = (event: React.ChangeEvent<HTMLInputElement>): void => {
+    const newAvailability  = event.target.checked;
     const newFilterParams = {...filterParams, availability: newAvailability}
     dispatch(filterProductsAction(newFilterParams));
   }
 
-  const handleChangeManufacturer = (event) => {
+  const handleChangeManufacturer = (event: React.ChangeEvent<HTMLInputElement>): void => {
     const newManufacturer = {...manufacturer, [event.target.name]: event.target.checked}
     const newFilterParams = {...filterParams, manufacturer: newManufacturer};
     dispatch(filterProductsAction(newFilterParams));

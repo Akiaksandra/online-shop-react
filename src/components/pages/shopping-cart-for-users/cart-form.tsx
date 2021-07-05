@@ -5,13 +5,15 @@ import useStyles from './use-styles';
 import './shopping-cart.scss';
 import * as Yup from 'yup';
 import FormikControl from '../../formik-control';
+import { ArrType } from '../../../types/types';
+import { OrderDileviryInfo } from '../../../types/store-types';
 
-const radioOptions = [
+const radioOptions: ArrType = [
   {value: "post", label: "Почтой"},
   {value: "courier", label: "Курьером"}
 ];
 
-const initialValues = {
+const initialValues: OrderDileviryInfo = {
   deliveryType: '',
   town: '',
   street: '',
@@ -35,18 +37,18 @@ const validationSchema = Yup.object({
   
 });
 
-const CartForm = (props) => {
+const CartForm: React.FC<{commonCount: number, commonPrice: number, onSubmitForm: any}> = (props) => {
 
   const { commonCount, commonPrice, onSubmitForm } = props;
   const classes = useStyles();
 
-  const onSubmit = (values, onSubmitProp) => {
+  const onSubmit = (values: OrderDileviryInfo, onSubmitProp: any) => {
     onSubmitProp.setSubmitting(false);
     onSubmitProp.resetForm();
     onSubmitForm(values);
   }
 
-  const checkCurrentWordForm = (count) => {
+  const checkCurrentWordForm = (count: number): string => {
     let word = null;
 
     switch(+count) {
@@ -105,7 +107,7 @@ const CartForm = (props) => {
               name ="house"
               label = "Дом"
               inputType = "number"
-              inputClassName = {classes.inputSmall}
+              // inputClassName = {classes.inputSmall}
               formControlClassName = "form-control-small"
             />
             <FormikControl 
@@ -113,7 +115,7 @@ const CartForm = (props) => {
               name ="flat"
               label = "Квартира"
               inputType = "number"
-              inputClassName = {classes.inputSmall}
+              // inputClassName = {classes.inputSmall}
               formControlClassName = "form-control-small"
             />
             <FormikControl 
@@ -121,7 +123,7 @@ const CartForm = (props) => {
               name ="floor"
               label = "Этаж"
               inputType = "number"
-              inputClassName = {classes.inputSmall}
+              // inputClassName = {classes.inputSmall}
               formControlClassName = "form-control-small"
             />
             <FormikControl 

@@ -2,17 +2,15 @@ import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import Header from '../header';
 import TransitionModal from '../modal';
-import { useSelector} from 'react-redux';
-
-
 import { adminRoutes, userRoutes, guestRoutes } from './routes';
+import { useAppSelector } from '../../types/hooks';
 
 
-const AppRouter = () => {
+const AppRouter: React.FC = () => {
 
-  const { currentUser } = useSelector(state => state.users) 
+  const { currentUser } = useAppSelector(state => state.users); 
   const isAdmin = currentUser ? currentUser.isAdmin  === "true" : false;
-  const { isLogin } = useSelector(state => state.users) 
+  const { isLogin } = useAppSelector(state => state.users); 
 
   return (
     <div>

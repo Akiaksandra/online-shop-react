@@ -10,5 +10,5 @@ const composeEnhancers = (typeof window !== 'undefined' && (window as any).__RED
 export const store = createStore(reducer, composeEnhancers(applyMiddleware(thunk)));
 
 export type RootState = ReturnType<typeof store.getState>;
-export type AppDispatch = typeof store.dispatch
+// export type AppDispatch = typeof store.dispatch;
 

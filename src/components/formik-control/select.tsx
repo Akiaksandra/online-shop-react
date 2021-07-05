@@ -1,10 +1,11 @@
 import React from 'react';
-import { ErrorMessage, Field } from 'formik';
+import { ErrorMessage, Field, FieldAttributes } from 'formik';
 import TextError from './text-error';
 import { Select, MenuItem } from '@material-ui/core';
 import useStyles from './use-styles'
+import { ArrType } from '../../types/types';
 
-const SelectList = (props) => {
+const SelectList: React.FC<{label: string, name: string, options: ArrType, isMultiple: boolean}> = (props) => {
   const classes = useStyles();
 
   const {label, name, options, isMultiple, ...rest} = props;
@@ -13,7 +14,7 @@ const SelectList = (props) => {
     <div className="form-label">{label}</div> 
     <Field name={name} {...rest}>
         {
-          ({ field, form }) => { 
+          ({ field, form }: FieldAttributes<any>) => { 
             return (
               <Select
                   {...field}

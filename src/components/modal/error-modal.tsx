@@ -5,13 +5,14 @@ import { clearUsersErrorAction } from '../../store/users-reducer/users-actions';
 import { clearProductsErrorAction } from '../../store/product-reducer/product-actions';
 import { useDispatch } from 'react-redux';
 import useStyles from './use-styles';
+import { Error } from '../../types/store-types';
 
-const ErrorModal = ({errorText}) => {
+const ErrorModal: React.FC<{errorText: Error}> = ({errorText}) => {
 
   const classes = useStyles();
   const dispatch = useDispatch();
 
-  const handleCloseModal = () => {
+  const handleCloseModal = (): void => {
     dispatch(closeModalAction());
     dispatch(clearUsersErrorAction());
     dispatch(clearProductsErrorAction())

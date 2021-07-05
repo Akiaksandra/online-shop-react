@@ -1,4 +1,3 @@
-import {FETCH_ERROR_PRODUCT, FETCH_START_PRODUCT, FETCH_PRODUCTS_SUCCESS, FETCH_PRODUCT_SUCCESS, DELETE_CURRENT_PRODUCT, SORT_PRODUCTS, FILTER_PRODUCTS, CLEAR_PRODUCTS_ERROR, CLEAR_FILTERS_ACTION} from './product-consts';
 import { getResource, postResource, getResourceId, deleteResourceId, updateResourceId } from '../../server';
 import createFilterUrl from './create-filter-url';
 import createSortUrl from './create-sort-url';
@@ -6,6 +5,9 @@ import createSortUrl from './create-sort-url';
 import { AllProducts, IFilterParams, IProduct, SortParam } from '../../types/store-types';
 import { ClearFiltersAction, ClearProductsErrorAction, DeleteCurrentProduct, FetchErrorAction, FetchProductsSuccessAction, FetchProductSuccessAction, FetchStartAction, FilterProductsAction, ProductsActionTypes, ProductTypesNames, SortProductsAction } from '../../types/action-types';
 import { Dispatch } from 'redux';
+import { ProductsThunkType } from '../../types/thunk-types';
+import { logOutAction } from '../users-reducer/users-actions';
+import { UpdateData } from '../../types/server-types';
 
 const fetchStartAction = (payload: string = ""): FetchStartAction  => ({ type: ProductTypesNames.FETCH_START_PRODUCT, payload });
 
@@ -26,8 +28,8 @@ export const fetchProductSuccessAction = (payload: IProduct): FetchProductSucces
 export const sortProductsAction = (payload: SortParam): SortProductsAction => ({ type: ProductTypesNames.SORT_PRODUCTS, payload});
 export const filterProductsAction = (payload: IFilterParams): FilterProductsAction => ({ type: ProductTypesNames.FILTER_PRODUCTS, payload});
 
-export const fetchProducts = (sortValue: SortParam = "", filters: IFilterParams) => {
-  return async (dispatch: Dispatch<ProductsActionTypes>)=> {
+export const fetchProducts = (sortValue: SortParam = "", filters: IFilterParams): ProductsThunkType => {
+  return async (dispatch)=> {
     dispatch(fetchStartAction());
     try {
       const sortParam: string = createSortUrl(sortValue);
@@ -40,8 +42,8 @@ export const fetchProducts = (sortValue: SortParam = "", filters: IFilterParams)
   }
 }  
 
-export const addProduct = (data: IProduct) => {
-  return async (dispatch: Dispatch<ProductsActionTypes>) => {
+export const addProduct = (data: IProduct | string): ProductsThunkType => {
+  return async (dispatch) => {
     dispatch(fetchStartAction());
     try {
       await postResource('products', data);
@@ -53,9 +55,8 @@ export const addProduct = (data: IProduct) => {
   }
 }  
 
-export const deleteProductAction = (data: any) => {
-  console.log('data: ', data);
-  return async (dispatch: Dispatch<ProductsActionTypes>) => {
+export const deleteProductAction = (data: any): ProductsThunkType => {
+  return async (dispatch) => {
     dispatch(fetchStartAction());
     try {
       await deleteResourceId('products', data);
@@ -67,17 +68,17 @@ export const deleteProductAction = (data: any) => {
   }
 } 
 
-export const updateProduct = (data: IProduct, id: string) => {
-  return async (dispatch: Dispatch<ProductsActionTypes>) => {
+export const updateProduct = (data: IProduct, id: string): ProductsThunkType => {
+  return async (dispatch) => {
     dispatch(fetchStartAction());
     try {
-      const updateData = {
+      const updateData: UpdateData = {
         category: data.category,
         description: data.description,
         img: data.img,
         manufacturer: data.manufacturer,
-        price: data.price,
-        quantity: data.quantity,
+        price: +data.price,
+        quantity: +data.quantity,
         title: data.title,
       }
       await updateResourceId('products', JSON.stringify(updateData), id);
@@ -89,8 +90,8 @@ export const updateProduct = (data: IProduct, id: string) => {
   }
 }  
 
-export const fetchProduct = (id: string) => {
-  return async (dispatch: Dispatch<ProductsActionTypes>) => {
+export const fetchProduct = (id: string): ProductsThunkType => {
+  return async (dispatch) => {
     dispatch(fetchStartAction());
     try {
       const response = await getResourceId('products', id)
@@ -101,8 +102,8 @@ export const fetchProduct = (id: string) => {
   }
 }
 
-export const clearFilters = () => {
-  return async (dispatch: Dispatch<ProductsActionTypes>) => {
+export const clearFilters = (): ProductsThunkType => {
+  return async (dispatch) => {
     dispatch(fetchStartAction());
     try {
       clearFiltersAction();

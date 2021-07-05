@@ -7,12 +7,6 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "row",
     justifyContent: "space-between",
   },
-  // inputLarge: {
-  //   width: '100%',
-  // },
-  // inputSmall: {
-    
-  // },
 
   button: {
     backgroundColor: "#00BCD4",

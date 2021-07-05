@@ -4,26 +4,29 @@ import { Button } from '@material-ui/core';
 import { Home } from '@material-ui/icons';
 import { useSelector, useDispatch } from 'react-redux';
 import { filterProductsAction } from '../../store/product-reducer/product-actions'
+import { useAppSelector } from '../../types/hooks';
+import { ArrType } from '../../types/types';
 
-const Navigation = () => {
+const Navigation: React.FC = () => {
 
   const dispatch = useDispatch();
 
-  const { filterParams } = useSelector(state => state.products);
-  const { category } = useSelector(state => state.products.filterParams);
+  const { filterParams } = useAppSelector(state => state.products);
+  const { category } = useAppSelector(state => state.products.filterParams);
 
-  const hadleChangeFilterValue = (event) => {
-    const newCategory = event.target.closest('button').value
-    const newFilterParams = {...filterParams, category: newCategory}
+  const hadleChangeFilterValue = (event:React.MouseEvent) => {
+    // @ts-ignore
+    const newCategory = event.target.closest('button').value;
+    const newFilterParams = {...filterParams, category: newCategory};
     dispatch(filterProductsAction(newFilterParams));
   }
 
-  const createNavButtons = (arr) => {
+  const createNavButtons = (arr: ArrType) => {
       const items = arr.map(element => {
-        const classNameEl = category === element.value ? styles.activeButton : null;
+        const classNameEl = category === element.value ? styles.activeButton : undefined;
         const startIconEl = element.img ? <Home /> : null
         return (
-        <Button variant="contained" color="primary" key={element.value} value={element.value} startIcon={startIconEl} className={classNameEl} onClick={(event) => hadleChangeFilterValue(event)}>
+        <Button variant="contained" color="primary" key={element.value} value={element.value} startIcon={startIconEl} className={classNameEl} onClick={hadleChangeFilterValue}>
             {element.label}
         </Button>
         )

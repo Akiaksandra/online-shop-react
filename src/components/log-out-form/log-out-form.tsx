@@ -5,14 +5,14 @@ import { useDispatch } from 'react-redux';
 import { closeModalAction } from '../../store/modal-reducer/modal-actions';
 import { logOutAction } from '../../store/users-reducer/users-actions'
 
-const LogOutForm = (() => {
+const LogOutForm = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
 
-  const handleCloseModal = () => {
+  const handleCloseModal = (): void => {
     dispatch(closeModalAction());
   } 
-  const handleLogOut = () => {
+  const handleLogOut = (): void => {
     dispatch(logOutAction());
     dispatch(closeModalAction());
   }
@@ -30,6 +30,6 @@ const LogOutForm = (() => {
     </div>
   </div>
   )
-})
+}
 
 export default LogOutForm;

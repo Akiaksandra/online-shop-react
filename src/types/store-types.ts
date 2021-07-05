@@ -1,18 +1,19 @@
 export interface IProduct {
-  _id: string,
+  _id?: string,
   title: string,
-  price: number,
-  quantity: number,
+  price: number | '',
+  quantity: number | '',
   manufacturer:string,
   description: string,
   img: string,
   category:  string[],
+  count?: number,
 }
 
 export type AllProducts = Array<IProduct>;
 
 export type Loading = boolean;
-export type Error = boolean | string;
+export type Error = string | boolean;
 export type SortParam = string;
 
 export interface IFilterParams {
@@ -39,10 +40,10 @@ export interface OrderDileviryInfo {
     deliveryType: string,
     town: string,
     street: string,
-    house: number,
+    house: number | "",
     flat: string,
     floor: string,
-    phone: number,
+    phone: number | "",
     initials: string,
     comment: string,
 };
@@ -83,7 +84,7 @@ export interface IUsers {
   loading: Loading,
   errorUsers: Error,
   isLogin: IsLogin,
-  currentOrder: Order | false,
+  currentOrder: Order | null,
 };
 
 export interface IModal {

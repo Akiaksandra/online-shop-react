@@ -10,43 +10,54 @@ import { PRODUCTS } from '../../../utils/consts';
 import Spinner from '../../spinner';
 import ErrorIndicator from '../../error-indicator';
 import Navigation from '../../navigation';
+import { useAppSelector } from '../../../types/hooks';
+import { AllProducts, IProduct } from '../../../types/store-types';
 // import { fetchAllUsers } from '../../../store/users-reducer/users-actions';
 
-const ProductsPageForUsers = () => {
+const ProductsPageForUsers: React.FC = () => {
 
-  const { allProducts, loading, sortParam, filterParams, errorProducts } = useSelector(state => state.products);
-  const { minPrice, maxPrice, manufacturer, availability } =  useSelector(state => state.products.filterParams);
-  const { userCart, isLogin } = useSelector(state => state.users);
+  const { allProducts, loading, sortParam, filterParams, errorProducts } = useAppSelector(state => state.products);
+  const { minPrice, maxPrice, manufacturer, availability } =  useAppSelector(state => state.products.filterParams);
+  const { userCart, isLogin } = useAppSelector(state => state.users);
 
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const handleChangeSortValue = (event) => {
+  const handleChangeSortValue = (event: any) => {
     dispatch(sortProductsAction(event.target.value));
   }
 
-  const handleClick = (e, id) => {
+  const handleClick = (e: React.MouseEvent, id: string) => {
       e.preventDefault(); 
       history.push(`${PRODUCTS}/${id}`)
   }
 
-  const handleAddToCart = (item) => {
+  const handleAddToCart = (item: IProduct) => {
     const newItem = {...item};
-    const hasData = userCart.products.length > 0 ? userCart.products.reduce((acc, el) => el._id === newItem._id ? acc = el.count + 1 : acc, 1) : 1;
-    newItem.count = hasData;
+    const hasData = (): number => {
+      if (userCart) {
+        return userCart.products.length > 0 ? 
+        // @ts-ignore
+          userCart.products.reduce((acc: number, el: IProduct) => { return el._id === newItem._id ? acc = el.count + 1 : acc}, 1) 
+          : 1 
+      } else {
+        return 1;
+      }
+    };
+    newItem.count = hasData();
     let newProducts = null;
-    hasData === 1 ? newProducts = [...userCart.products, newItem] : newProducts = userCart.products.map(el => el._id === newItem._id ? newItem : el);
-    const newData = {products: newProducts}
-    dispatch(updateUserCart(JSON.stringify(newData), userCart._id));
+    hasData() === 1 && userCart ? newProducts = [...userCart.products, newItem] : newProducts = userCart?.products.map(el => el._id === newItem._id ? newItem : el);
+    const newData = {products: newProducts};
+    dispatch(updateUserCart(JSON.stringify(newData), userCart ? userCart._id : ""));
   }
 
   useEffect(() => {
     dispatch(fetchProducts(sortParam, filterParams));
-    return () => dispatch(clearProductsErrorAction())
+    return () => {dispatch(clearProductsErrorAction())}
   }, [sortParam, minPrice, maxPrice, manufacturer, availability]);
 
 
-  const createItems = (arr) => {
+  const createItems = (arr: AllProducts): JSX.Element[] => {
     const itemsCards = arr.map(item => {
       return (
         <Grid item md={3} sm={4} xs={6} className={styles.gridItem} key={item._id}>
@@ -56,7 +67,7 @@ const ProductsPageForUsers = () => {
               <div className={styles.info}>
               <div className={styles.desc}>
                   <span>Цена {item.price}р.</span>
-                  <a href='/' onClick={(e) => handleClick(e, item._id)}>Подробнее...</a>
+                  <a href='/' onClick={(e) => handleClick(e, item._id ? item._id : "")}>Подробнее...</a>
                 </div>
                 {isLogin ? 
                 <IconButton aria-label="add" className={styles.button} onClick={() => handleAddToCart(item)}>
@@ -71,13 +82,13 @@ const ProductsPageForUsers = () => {
     return itemsCards; 
   }
 
-  const filterAllProducts = (arr) => {
-    const filterByCategory = (arrForCategory) => {
+  const filterAllProducts = (arr: AllProducts): AllProducts => {
+    const filterByCategory = (arrForCategory: AllProducts) => {
       let result = arrForCategory;
       if (filterParams.category !== "all") result = arrForCategory.filter(el => el.category.includes(filterParams.category ));
       return result;
     }
-    const filterBySearch = (arrForSearch) => {
+    const filterBySearch = (arrForSearch: AllProducts) => {
       let result = arrForSearch;
       if (filterParams.search !== "") result = arrForSearch.filter(el => el.title.toLowerCase().indexOf(filterParams.search) !== -1);
       return result;

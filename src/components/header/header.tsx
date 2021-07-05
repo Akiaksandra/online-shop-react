@@ -9,32 +9,34 @@ import { openModal } from '../../store/modal-reducer/modal-actions';
 import { useDispatch, useSelector} from 'react-redux';
 import { filterProductsAction } from '../../store/product-reducer/product-actions';
 import { useLocation } from 'react-router-dom';
+import { useAppSelector } from '../../types/hooks';
+import { ModalThunkType } from '../../types/thunk-types';
 
 
-const Header = () => {
+const Header: React.FC = () => {
 
   let location = useLocation();
 
   const dispatch = useDispatch();
 
-  const { filterParams  } = useSelector(state => state.products);
-  const { search } = useSelector(state => state.products.filterParams);
-  const {isLogin} = useSelector(state => state.users)
-  const { currentUser } = useSelector(state => state.users) 
+  const { filterParams  } = useAppSelector(state => state.products);
+  const { search } = useAppSelector(state => state.products.filterParams);
+  const { isLogin, currentUser} = useAppSelector(state => state.users)
+
   const isAdmin = currentUser ? currentUser.isAdmin === "true" : false;
 
-  const handleChangeSearchValue = (event) => {
+  const handleChangeSearchValue = (event: React.FocusEvent<HTMLInputElement>): void => {
     const newSearch = event.target.value.toLowerCase();
     if (search === newSearch) return;
     const newFilterParams = {...filterParams, search: newSearch}
     dispatch(filterProductsAction(newFilterParams));
   }
 
-  const setClassName = (value) => {
-    return location.pathname === value ? "active-button" : null
+  const setClassName = (value: string): string | undefined => {
+    return location.pathname === value ? "active-button" : undefined;
   }
-  const openLogin = () => dispatch(openModal("login"))
-  const openLogout = () => dispatch(openModal("logout"))
+  const openLogin = (): ModalThunkType => dispatch(openModal("login"))
+  const openLogout = (): ModalThunkType => dispatch(openModal("logout"))
 
   const currentButton = !isLogin ? 
         <Button variant="contained" color="primary" onClick={openLogin}>

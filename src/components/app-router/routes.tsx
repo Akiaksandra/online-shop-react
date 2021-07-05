@@ -1,49 +1,48 @@
-import { CART, PRODUCTS, ORDERS_HISTORY } from '../../utils/consts';
 import ProductsPageForUsers from '../pages/products-page-for-users';
 import ProductsPageForAdmin from '../pages/products-page-for-admin';
 import ShoppingCartForUsers from '../pages/shopping-cart-for-users';
 import ProductPage from '../pages/product-page';
 import OrdersHistoryForUsers from '../pages/orders-history-for-users';
 import OrdersHistoryForAdmin from '../pages/orders-history-for-admin';
-import { AdminRoutes } from '../../types/route-types';
+import { AdminRoutes, GuestRoutes, RoutesTypesNames, UserRoutes } from '../../types/route-types';
 
 export const adminRoutes: AdminRoutes = [
   {
-    path: ORDERS_HISTORY,
+    path: RoutesTypesNames.ORDERS_HISTORY,
     Component: OrdersHistoryForAdmin, 
   },
   {
-    path: PRODUCTS,
+    path: RoutesTypesNames.PRODUCTS,
     Component: ProductsPageForAdmin,
   },
 ];
 
-export const userRoutes = [
+export const userRoutes: UserRoutes = [
   {
-    path: PRODUCTS,
+    path: RoutesTypesNames.PRODUCTS,
     Component: ProductsPageForUsers,
   },
   {
-    path: PRODUCTS + '/:id',
+    path: RoutesTypesNames.PRODUCTS_WITH_ID,
     Component: ProductPage,
   },
   {
-    path: ORDERS_HISTORY,
+    path: RoutesTypesNames.ORDERS_HISTORY,
     Component: OrdersHistoryForUsers,
   },
   {
-    path: CART,
+    path: RoutesTypesNames.CART,
     Component: ShoppingCartForUsers,
   },
 ];
 
-export const guestRoutes = [
+export const guestRoutes: GuestRoutes = [
   {
-    path: PRODUCTS,
+    path: RoutesTypesNames.PRODUCTS,
     Component: ProductsPageForUsers,
   },
   {
-    path: PRODUCTS + '/:id',
+    path: RoutesTypesNames.PRODUCTS_WITH_ID,
     Component: ProductPage,
   },
 ];

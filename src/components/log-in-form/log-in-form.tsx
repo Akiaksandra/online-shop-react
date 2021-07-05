@@ -9,8 +9,14 @@ import { checkEmailAndPassword } from '../../store/users-reducer/users-actions';
 import LoadingModal from '../modal/loading-modal';
 import SuccessModal from '../modal/success-modal';
 import ErrorModal from '../modal/error-modal';
+import { useAppSelector } from '../../types/hooks';
 
-const initialValues = {
+interface LogInTypes {
+  email: string,
+  password: string,
+}
+
+const initialValues: LogInTypes = {
   email: '',
   password: '',
 };
@@ -21,15 +27,15 @@ const validationSchema = Yup.object({
 });
 
 
-
-const LogInForm =(() => {
+const LogInForm: React.FC = () => {
 
   const dispatch = useDispatch();
   const classes = useStyles();
 
-  const { currentUser, loading, errorUsers } = useSelector(state => state.users);
+  const { currentUser, loading, errorUsers } = useAppSelector(state => state.users);
 
-  const onSubmit = (values, onSubmitProp) => {
+  const onSubmit = (values: LogInTypes, onSubmitProp: any): void => {
+    console.log(values)
     const {email, password } = values;
     dispatch(checkEmailAndPassword(email, password));
     onSubmitProp.setSubmitting(false);
@@ -37,12 +43,13 @@ const LogInForm =(() => {
   }
   
   const needCartRequest = currentUser ? !(currentUser.isAdmin  === "true") : false;
+  const needClearFilters = currentUser?.isAdmin === "true" ? true : false
 
   if (loading) return <LoadingModal text = {"Проверка введенных данных..."} />
 
   if (errorUsers) return <ErrorModal errorText = {errorUsers} />
 
-  if (currentUser) return <SuccessModal text = {"Вы вошли в систему!"} needCartRequest = {needCartRequest} needClearFilters = {currentUser.isAdmin} />
+  if (currentUser) return <SuccessModal text = {"Вы вошли в систему!"} needCartRequest = {needCartRequest} needClearFilters = {needClearFilters} />
 
   return (
     <div className={classes.paper} >
@@ -79,6 +86,6 @@ const LogInForm =(() => {
     </div>
   </div>
   )
-})
+}
 
 export default LogInForm;

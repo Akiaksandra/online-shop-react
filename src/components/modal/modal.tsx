@@ -2,26 +2,28 @@ import React from 'react';
 import useStyles from './use-styles';
 import { Modal, Backdrop, DialogContent } from '@material-ui/core';
 import LogInForm from '../log-in-form';
-import { useSelector, useDispatch} from 'react-redux';
+import { useDispatch} from 'react-redux';
 import { closeModalAction } from '../../store/modal-reducer/modal-actions';
 import LogOutForm from '../log-out-form';
 import NewProductForm from '../new-product-form';
 import DeleteProductFunc from '../delete-product';
+import { useAppSelector } from '../../types/hooks';
+import { JsxElement } from 'typescript';
 
-const TransitionsModal = () => {
+const TransitionsModal: React.FC = () => {
 
   const classes = useStyles();
 
-  const { isOpenModal, aim } = useSelector(state => state.modal)
+  const { isOpenModal, aim } = useAppSelector(state => state.modal)
   
 
   const dispatch = useDispatch();
   
-  const handleClose = () => {
+  const handleClose = (): void => {
     dispatch(closeModalAction())
   }
 
-  const findCurrentComponent = () => {
+  const findCurrentComponent = (): JSX.Element | null => {
     switch (aim) {
       case ("newProduct"): 
       case ("editProduct"):

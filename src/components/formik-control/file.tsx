@@ -1,18 +1,18 @@
 import React, { useState } from 'react';
-import { ErrorMessage, Field } from 'formik';
+import { ErrorMessage, Field, FieldAttributes } from 'formik';
 import TextError from './text-error';
 import './formik-styles.scss';
-import { useSelector } from 'react-redux';
+import { useAppSelector } from '../../types/hooks';
 
-const File = (props) => {
+const File: React.FC<{label: string, name: string, inputType: string, formControlClassName?: string}> = (props) => {
 
-  const { currentProduct } = useSelector(state => state.products);
+  const { currentProduct } = useAppSelector(state => state.products);
 
   let checkFileName = false;
   if (currentProduct) checkFileName = true;
   const [ fileName, setFileName ] = useState(checkFileName);
 
-  const addFile = (event, callback) => {
+  const addFile = (event: any, callback: any): void => {
     let fileToLoad = event.currentTarget.files[0];
     const fileReader = new FileReader();
     fileReader.onloadend = function() {
@@ -28,7 +28,7 @@ const File = (props) => {
   return (
     <div className={formControlClassName} key={name}>
       <Field name={name}>
-        {({field, form}) => {
+        {({field, form}: FieldAttributes<any>) => {
           return (
           <div className="upload-file__wrapper">
             <div>

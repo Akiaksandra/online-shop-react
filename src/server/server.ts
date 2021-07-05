@@ -1,30 +1,27 @@
 import axios, { AxiosResponse } from 'axios';
-import IProduct from ('../types/store-types')
+import { UpdateData } from '../types/server-types';
+import { AllProducts, ICurrentUser, IProduct, Order } from '../types/store-types'
 
-const url = "https://onlineshop-509e.restdb.io/rest/";
-const adminKey ="60b4a127318a330b62f588ad" ;
+const url: string = "https://onlineshop-509e.restdb.io/rest/";
+const adminKey: string ="60b4a127318a330b62f588ad" ;
 
-export const getResource = (dbName, filterParam = "", sortParam = "") => {
+export const getResource = (dbName: string, filterParam: any = "", sortParam: string = ""): Promise<AxiosResponse> => {
   return axios.get(`${url}${dbName}?q={${filterParam}}${sortParam}`, {
   headers: { 'x-apikey': adminKey }
 })}
 
-export const postResource = (dbName, data) => axios.post(`${url}${dbName}`, data, {
-  headers: { 'x-apikey': adminKey, 'Content-Type': 'application/json' }
-}): AxiosResponse<IProduct[]>;
-
-export const putResource = (dbName, data, id) => axios.post(`${url}${dbName}/${id}`, data, {
+export const postResource = (dbName: string, data: IProduct | Order | string): Promise<AxiosResponse> => axios.post(`${url}${dbName}`, data, {
   headers: { 'x-apikey': adminKey, 'Content-Type': 'application/json' }
 });
 
-export const getResourceId = (dbName, id) => axios.get(`${url}${dbName}/${id}`, {
+export const getResourceId = (dbName: string, id: string): Promise<AxiosResponse> => axios.get(`${url}${dbName}/${id}`, {
   headers: { 'x-apikey': adminKey }
 });
 
-export const deleteResourceId = (dbName, id) => axios.delete(`${url}${dbName}/${id}`, {
+export const deleteResourceId = (dbName: string, id: string): Promise<AxiosResponse> => axios.delete(`${url}${dbName}/${id}`, {
   headers: { 'x-apikey': adminKey }
 });
 
-export const updateResourceId = (dbName, data, id) => axios.patch(`${url}${dbName}/${id}`, data, {
+export const updateResourceId = (dbName: string, data: string | { products: AllProducts} | Order, id: string): Promise<AxiosResponse> => axios.patch(`${url}${dbName}/${id}`, data, {
   headers: { 'x-apikey': adminKey, 'Content-Type': 'application/json' }
 });

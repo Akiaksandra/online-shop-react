@@ -7,14 +7,15 @@ import { deleteCurrentProduct } from '../../store/product-reducer/product-action
 import LoadingModal from '../modal/loading-modal';
 import SuccessModal from '../modal/success-modal';
 import ErrorModal from '../modal/error-modal';
-import { useAppSelector, useAppDispatch } from '../../types/hooks';
+import { useAppSelector } from '../../types/hooks';
+import { useDispatch } from 'react-redux';
 
 const DeleteProductFunc = () => {
   
   const { currentProduct, loading, errorProducts } = useAppSelector(state => state.products)
 
   const classes = useStyles();
-  const dispatch = useAppDispatch();
+  const dispatch = useDispatch();
 
   const handleCloseModal = (): void => {
     dispatch(closeModalAction());
@@ -28,7 +29,7 @@ const DeleteProductFunc = () => {
   if (loading) return <LoadingModal text = {"Происходит удаление товара..."} />
 
   if (errorProducts) return <ErrorModal errorText = {errorProducts} />
-  // @ts-ignore
+
   if (!currentProduct) return <SuccessModal text = {"Товар успешно удален!"}/>
 
   if (currentProduct) return (
@@ -44,6 +45,7 @@ const DeleteProductFunc = () => {
     </div>
   </div>
   )
+  return null;
 }
 
 export default DeleteProductFunc;
