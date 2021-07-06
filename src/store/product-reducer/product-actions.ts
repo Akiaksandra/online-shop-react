@@ -3,10 +3,8 @@ import createFilterUrl from './create-filter-url';
 import createSortUrl from './create-sort-url';
 
 import { AllProducts, IFilterParams, IProduct, SortParam } from '../../types/store-types';
-import { ClearFiltersAction, ClearProductsErrorAction, DeleteCurrentProduct, FetchErrorAction, FetchProductsSuccessAction, FetchProductSuccessAction, FetchStartAction, FilterProductsAction, ProductsActionTypes, ProductTypesNames, SortProductsAction } from '../../types/action-types';
-import { Dispatch } from 'redux';
+import { ClearFiltersAction, ClearProductsErrorAction, DeleteCurrentProduct, FetchErrorAction, FetchProductsSuccessAction, FetchProductSuccessAction, FetchStartAction, FilterProductsAction, ProductTypesNames, SortProductsAction } from '../../types/action-types';
 import { ProductsThunkType } from '../../types/thunk-types';
-import { logOutAction } from '../users-reducer/users-actions';
 import { UpdateData } from '../../types/server-types';
 
 const fetchStartAction = (payload: string = ""): FetchStartAction  => ({ type: ProductTypesNames.FETCH_START_PRODUCT, payload });

@@ -4,15 +4,18 @@ import CartOrder from './cart-order';
 import CartForm from './cart-form';
 import CreateCartList from './create-cart-list';
 import CreateOrderList from './create-order-list';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { updateUserCart, createNewOrder, clearUsersErrorAction, clearCurrentOrderAction, fetchUserOrdersHistory } from '../../../store/users-reducer/users-actions';
 import Spinner from '../../spinner';
 import ErrorIndicator from '../../error-indicator';
+import { useAppSelector } from '../../../types/hooks';
+import { OrderDileviryInfo } from '../../../types/store-types';
 
-const ShoppingCartForUsers = () => {
+const ShoppingCartForUsers: React.FC = () => {
 
-  const { userCart, loading, errorUsers, currentUser, currentOrder } = useSelector(state => state.users)
-  const [selected, setSelected] = useState([]);
+  const { userCart, loading, errorUsers, currentUser, currentOrder } = useAppSelector(state => state.users)
+  const [selected, setSelected] = useState<Array<string>>([]);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     return () =>  {
@@ -21,11 +24,9 @@ const ShoppingCartForUsers = () => {
     };
   }, [])
 
-  const dispatch = useDispatch();
-
-  const handleClick = (event, id) => {
+  const handleClick = (event: React.MouseEvent<HTMLElement>, id: string): void => {
     const selectedIndex = selected.indexOf(id);
-    let newSelected = [ ];
+    let newSelected: Array<string> = [];
 
     if (selectedIndex === -1) {
       newSelected = newSelected.concat(selected.concat(id));
@@ -43,38 +44,39 @@ const ShoppingCartForUsers = () => {
     setSelected(newSelected);
   };
 
-  const handleSelectAllClick = (event) => {
+  const handleSelectAllClick = (event: React.ChangeEvent<HTMLInputElement>): void => {
     if (event.target.checked) {
-      const newSelecteds = userCart.products.map((el) => el._id);
-      setSelected(newSelecteds);
+      if (userCart === null) return;
+      const newSelected = userCart.products?.map((el) => el._id); 
+      setSelected(newSelected) ;
       return;
     }
     setSelected([]);
   }; 
 
 
-  const handleDelete = () => {
+  const handleDelete = (): void => {
+    if (userCart === null) return; //ts
     const newProducts = userCart.products.filter(el => !selected.includes(el._id));
-    const newData = {products: newProducts}
+    const newData = {products: newProducts};
     dispatch(updateUserCart(JSON.stringify(newData), userCart._id));
     setSelected([]);
   }
 
-  const calculateCommonPrice = () => {
+  const calculateCommonPrice = (): number => {
+    if (userCart === null) return 0; //ts
     const selectedItems = selected.map(selectId => userCart.products.find(el => el._id === selectId));
-    const selectedItemsPrice = selectedItems.reduce((acc, el) => acc += +el.price * +el.count, 0)
+    const selectedItemsPrice = selectedItems.reduce((acc, el) => el ? (acc += +el.price * (el.count ? +el.count : 0)) : acc, 0)
     return selectedItemsPrice;
   }
 
-  const calculateCommonCount = () => {
-    return selected.length;
-  };
+  const calculateCommonCount = (): number => selected.length;
 
-
-  const onSubmitForm = async (formData) => {
+  const onSubmitForm = async (formData: OrderDileviryInfo) => {
+    if (userCart === null || currentUser === null) return; //ts
     const selectedId = [...selected]
     const selectedItems = selectedId.map(selectId => userCart.products.find(el => el._id === selectId));
-    const selectedItemsPrice = selectedItems.reduce((acc, el) => acc += +el.price * +el.count, 0);
+    const selectedItemsPrice = selectedItems.reduce((acc, el) => el ? (acc += +el.price * (el.count ? +el.count : 0)) : acc, 0);
     const newOrder = {
         forUser: currentUser._id,
         orderProducts: selectedItems,
@@ -105,7 +107,7 @@ const ShoppingCartForUsers = () => {
                                       />
     const content = currentOrder ? <CreateOrderList />
                                   : <CreateCartList 
-                                    array={userCart.products} 
+                                    array={userCart ? userCart.products : []} 
                                     handleClick={handleClick} 
                                     selected={selected} 
                                     handleSelectAllClick={handleSelectAllClick} 

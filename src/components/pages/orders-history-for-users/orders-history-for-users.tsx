@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import './orders-history-for-users.scss';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Button } from '@material-ui/core';
 import { clearUsersErrorAction } from '../../../store/users-reducer/users-actions';
 import Spinner from '../../spinner';

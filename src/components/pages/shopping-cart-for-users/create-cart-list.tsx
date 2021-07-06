@@ -3,22 +3,31 @@ import './shopping-cart.scss';
 import './shopping-cart.scss';
 import { Checkbox, Button } from '@material-ui/core';
 import useStyles from './use-styles';
+import { IProduct } from '../../../types/store-types';
 
-const CreateCartList = (props) => {
+type PropsType = {
+  array: IProduct[], 
+  handleClick: (event: React.MouseEvent<HTMLElement>, id: string) => void, 
+  selected: Array<string>, 
+  handleSelectAllClick: (event: React.ChangeEvent<HTMLInputElement>) => void, 
+  handleDelete: () => void,
+}
+
+const CreateCartList: React.FC<PropsType> = (props) => {
   const classes = useStyles();
   
   const { array, handleClick, selected, handleSelectAllClick, handleDelete } = props;
 
   const newArray = array.map(({_id, title, price, count, category, img}) => {
-    const isSelected = (id) => {
+    const isSelected = (id: string) => {
       return selected.indexOf(id) !== -1;
     } 
-    const isItemSelected = isSelected(_id);
-    const commonPrice = +price * +count;
+    const isItemSelected = isSelected(_id ? _id : "");
+    const commonPrice = +price * (count ? +count : 0);
 
     return (
 
-      <li className="cart-item" key={_id} onClick={(event) => handleClick(event, _id)}>
+      <li className="cart-item" key={_id} onClick={(event) => handleClick(event, _id ? _id : "")}>
         <Checkbox
           color="primary"
           checked={isItemSelected}

@@ -1,5 +1,4 @@
-import { IOpenModalAction, ICloseModalAction, ModalActionTypes, ModalTypesNames } from '../../types/action-types';
-import { Dispatch } from 'redux';
+import { IOpenModalAction, ICloseModalAction, ModalTypesNames } from '../../types/action-types';
 import { ModalThunkType } from '../../types/thunk-types';
 
 export const openModalAction = (payload: string):IOpenModalAction => {

@@ -6,7 +6,7 @@ import { Search } from '@material-ui/icons';
 import Filters from '../filters-for-user';
 import { Link } from 'react-router-dom';
 import { openModal } from '../../store/modal-reducer/modal-actions';
-import { useDispatch, useSelector} from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { filterProductsAction } from '../../store/product-reducer/product-actions';
 import { useLocation } from 'react-router-dom';
 import { useAppSelector } from '../../types/hooks';

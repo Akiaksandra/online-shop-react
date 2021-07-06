@@ -2,7 +2,7 @@ import React from 'react';
 import useStyles from './use-styles';
 import { Button } from '@material-ui/core';
 import { closeModalAction } from '../../store/modal-reducer/modal-actions';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { fetchUserCart, fetchUserOrdersHistory } from '../../store/users-reducer/users-actions';
 import { clearFilters } from '../../store/product-reducer/product-actions';
 import { useAppSelector } from '../../types/hooks';

@@ -1,13 +1,13 @@
 import React from 'react';
 import './shopping-cart.scss';
-import { useSelector } from 'react-redux';
+import { useAppSelector } from '../../../types/hooks';
 
-const CreateOrderList = () => {
+const CreateOrderList: React.FC = () => {
   
-  const { currentOrder } = useSelector(state => state.users);
+  const { currentOrder } = useAppSelector(state => state.users);
 
-  const newArray = currentOrder.orderProducts.map(({_id, title, price, count, img, category}) => {
-    const commonPrice = +price * +count;
+  const newArray = currentOrder?.orderProducts.map(({_id, title, price, count, img, category}) => {
+    const commonPrice = +price * (count ? +count : 0);
 
     return (
       <li className="cart-item" key={_id}>

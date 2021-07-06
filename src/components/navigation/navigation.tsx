@@ -2,7 +2,7 @@ import React  from 'react';
 import styles from './styles.module.scss';
 import { Button } from '@material-ui/core';
 import { Home } from '@material-ui/icons';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { filterProductsAction } from '../../store/product-reducer/product-actions'
 import { useAppSelector } from '../../types/hooks';
 import { ArrType } from '../../types/types';
@@ -14,8 +14,7 @@ const Navigation: React.FC = () => {
   const { filterParams } = useAppSelector(state => state.products);
   const { category } = useAppSelector(state => state.products.filterParams);
 
-  const hadleChangeFilterValue = (event:React.MouseEvent) => {
-    // @ts-ignore
+  const hadleChangeFilterValue = (event:any) => {
     const newCategory = event.target.closest('button').value;
     const newFilterParams = {...filterParams, category: newCategory};
     dispatch(filterProductsAction(newFilterParams));

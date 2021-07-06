@@ -1,5 +1,4 @@
-import React, { ComponentType } from "react";
-import ProductsPageForAdmin from '../components/pages/products-page-for-admin';
+import { ComponentType } from "react";
 
 export enum RoutesTypesNames {
   ORDERS_HISTORY = "/orders-history",

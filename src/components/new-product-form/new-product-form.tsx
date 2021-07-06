@@ -4,17 +4,17 @@ import { Button } from '@material-ui/core';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import FormikControl from '../formik-control';
-import { useSelector, useDispatch} from 'react-redux';
+import { useDispatch} from 'react-redux';
 import { addProduct } from '../../store/product-reducer/product-actions';
 import { deleteCurrentProduct, updateProduct } from '../../store/product-reducer/product-actions';
 import LoadingModal from '../modal/loading-modal';
 import SuccessModal from '../modal/success-modal';
 import ErrorModal from '../modal/error-modal';
 import { useAppSelector } from '../../types/hooks';
-import { IProduct } from '../../types/store-types';
+import { IProduct, NewProduct } from '../../types/store-types';
 import { ArrType } from '../../types/types';
 
-const initialValues: IProduct = {
+const initialValues: NewProduct = {
   title: '',
   category: [],
   price: '',
@@ -64,20 +64,20 @@ const NewProductForm: React.FC = () => {
     }
     }, [])  
   
-  const onSubmitFormNewProduct = async (values: IProduct, onSubmitProp: any): Promise<void> => {
+  const onSubmitFormNewProduct = async (values: any, onSubmitProp: any): Promise<void> => {
     onSubmitProp.setSubmitting(false);
     onSubmitProp.resetForm();
     const data = JSON.stringify(values)
     dispatch(addProduct(data))
   }  
 
-  const onSubmitFormEditProduct = async (values: IProduct, onSubmitProp: any): Promise<void> => {
+  const onSubmitFormEditProduct = async (values: any, onSubmitProp: any): Promise<void> => {
     onSubmitProp.setSubmitting(false);
-    await dispatch(updateProduct(values, values._id || "")); // ts
+    await dispatch(updateProduct(values, values._id));
     dispatch(deleteCurrentProduct())
   }
 
-  let onSubmit =  onSubmitFormNewProduct; 
+  let onSubmit:(values: NewProduct | IProduct, onSubmitProp: any) => Promise<void> =  onSubmitFormNewProduct; 
   
   let currentValues = initialValues;
 
@@ -97,7 +97,7 @@ const NewProductForm: React.FC = () => {
   if (errorProducts) return <ErrorModal errorText = {errorProducts} />
 
   return (
-    <div className={classes.paper} style = {{maxWidth: "500px", height: "100vh"}}>
+    <div className={classes.paper} style = {{maxWidth: "500px", height: "100%", maxHeight: "100vh"}}>
     <h2 className ="transition-modal-title"> {aim === "newProduct" ? "Добавление нового товара" : "Редактирование товара" }</h2>
     <div className ="transition-modal-content">
       <Formik

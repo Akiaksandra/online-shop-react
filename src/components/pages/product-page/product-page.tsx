@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import './product-page.scss';
 import { Button } from '@material-ui/core';
-import { useSelector, useDispatch} from 'react-redux';
+import { useDispatch} from 'react-redux';
 import { fetchProduct, deleteCurrentProduct, clearProductsErrorAction } from '../../../store/product-reducer/product-actions';
 import { updateUserCart } from '../../../store/users-reducer/users-actions';
 import { openModal } from '../../../store/modal-reducer/modal-actions';
@@ -33,8 +33,7 @@ const ProductPage: React.FC<any> = ({match}) => {
     const hasData = (): number => {
       if (userCart) {
         return userCart.products.length > 0 ? 
-        // @ts-ignore
-          userCart.products.reduce((acc: number, el: IProduct) => { return el._id === newItem._id ? acc = el.count + 1 : acc}, 1) 
+          userCart.products.reduce((acc: number, el: IProduct) => { return el._id === newItem._id ? acc = (el.count ? el.count : 0) + 1 : acc}, 1) 
           : 1 
       } else {
         return 1;

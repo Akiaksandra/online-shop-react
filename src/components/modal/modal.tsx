@@ -8,7 +8,6 @@ import LogOutForm from '../log-out-form';
 import NewProductForm from '../new-product-form';
 import DeleteProductFunc from '../delete-product';
 import { useAppSelector } from '../../types/hooks';
-import { JsxElement } from 'typescript';
 
 const TransitionsModal: React.FC = () => {
 

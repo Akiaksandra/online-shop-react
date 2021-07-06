@@ -1,13 +1,23 @@
 export interface IProduct {
-  _id?: string,
+  _id: string,
   title: string,
-  price: number | '',
-  quantity: number | '',
+  price: number,
+  quantity: number,
   manufacturer:string,
   description: string,
   img: string,
   category:  string[],
   count?: number,
+}
+
+export interface NewProduct {
+  title: string,
+  price: number | "",
+  quantity: number | "",
+  manufacturer:string,
+  description: string,
+  img: string,
+  category:  string[],
 }
 
 export type AllProducts = Array<IProduct>;

@@ -1,6 +1,5 @@
 import axios, { AxiosResponse } from 'axios';
-import { UpdateData } from '../types/server-types';
-import { AllProducts, ICurrentUser, IProduct, Order } from '../types/store-types'
+import { AllProducts, IProduct, Order } from '../types/store-types'
 
 const url: string = "https://onlineshop-509e.restdb.io/rest/";
 const adminKey: string ="60b4a127318a330b62f588ad" ;

@@ -1,7 +1,7 @@
 import React from 'react';
 import {Button, Switch, FormGroup,  FormControlLabel, Checkbox} from '@material-ui/core';
 import './filters.scss';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { filterProductsAction } from '../../store/product-reducer/product-actions'
 import { useAppSelector } from '../../types/hooks';
 

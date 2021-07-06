@@ -1,16 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import useStyles from './use-styles';
 import {Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow, TableSortLabel, Paper} from '@material-ui/core';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { fetchAllUOrdersHistory } from '../../../store/users-reducer/users-actions';
 import Spinner from '../../spinner';
 import ErrorIndicator from '../../error-indicator';
+import { DataType, OrderType, PropsTypeForTable } from '../../../types/types';
+import { useAppSelector } from '../../../types/hooks';
+import { Order } from '../../../types/store-types';
 
-function createData( { _id, forUser, orderPrice, orderStatus,  orderDileviryInfo : {deliveryType}}) {
+function createData( { _id, forUser, orderPrice, orderStatus,  orderDileviryInfo : {deliveryType}} : Order): DataType {
   return { orderId: _id, userId: forUser, price: orderPrice, status: orderStatus, deliveryType };
 }
 
-function descendingComparator(a, b, orderBy) {
+function descendingComparator(a: DataType, b: DataType, orderBy: string) {
   if (b[orderBy] < a[orderBy]) {
     return -1;
   }
@@ -20,14 +23,15 @@ function descendingComparator(a, b, orderBy) {
   return 0;
 }
 
-function getComparator(order, orderBy) {
+function getComparator(order: OrderType, orderBy: string): (a: DataType, b: DataType) => number {
   return order === 'desc'
-    ? (a, b) => descendingComparator(a, b, orderBy)
-    : (a, b) => -descendingComparator(a, b, orderBy);
+    ? (a: DataType, b: DataType) => descendingComparator(a, b, orderBy)
+    : (a: DataType, b: DataType) => -descendingComparator(a, b, orderBy);
 }
 
-function stableSort(array, comparator) {
-  const stabilizedThis = array.map((el, index) => [el, index]);
+function stableSort(array: DataType[], comparator: (a: DataType, b: DataType) => number) {
+  const stabilizedThis: [DataType, number][] = array.map((el, index) => [el, index]);
+
   stabilizedThis.sort((a, b) => {
     const order = comparator(a[0], b[0]);
     if (order !== 0) return order;
@@ -44,9 +48,12 @@ const headCells = [
   { id: 'deliveryType', numeric: true, label: 'Вид доставки'},
 ];
 
-function EnhancedTableHead(props) {
+
+function EnhancedTableHead(props: PropsTypeForTable): JSX.Element {
+
   const { classes, order, orderBy, onRequestSort } = props;
-  const createSortHandler = (property) => (event) => {
+  
+  const createSortHandler = (property: string) => (event: React.MouseEvent) => {
     onRequestSort(event, property);
   };
 
@@ -82,9 +89,9 @@ function EnhancedTableHead(props) {
 
 export default function OrdersHistoryForAdmin() {
 
-  const { ordersHistory,  loading, errorUsers } = useSelector(state => state.users);
+  const { ordersHistory,  loading, errorUsers } = useAppSelector(state => state.users);
 
-  const [order, setOrder] = useState('asc');
+  const [order, setOrder] = useState<OrderType>('asc');
   const [orderBy, setOrderBy] = useState('name');
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
@@ -98,22 +105,21 @@ export default function OrdersHistoryForAdmin() {
 
   const rows = ordersHistory ? ordersHistory.map(el => createData(el)) : [];
 
-  const handleRequestSort = (event, property) => {
+  const handleRequestSort = (event: React.MouseEvent, property: string): void => {
     const isAsc = orderBy === property && order === 'asc';
     setOrder(isAsc ? 'desc' : 'asc');
     setOrderBy(property);
   };
 
-  const handleChangePage = (event, newPage) => {
+  const handleChangePage = (event: React.MouseEvent<HTMLButtonElement, MouseEvent> | null, newPage: number): void => {
     setPage(newPage);
   };
 
-  const handleChangeRowsPerPage = (event) => {
+  const handleChangeRowsPerPage = (event: any): void => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
-
-  const emptyRows = ordersHistory ? rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage) : null;
+  const emptyRows = rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
 
   if (loading) return <Spinner />
 
@@ -134,7 +140,8 @@ export default function OrdersHistoryForAdmin() {
               order={order}
               orderBy={orderBy}
               onRequestSort={handleRequestSort}
-              rowCount={ordersHistory && rows.length}
+              // @ts-ignore
+              rowCount={rows.length}
             />
             <TableBody>
               {ordersHistory && stableSort(rows, getComparator(order, orderBy))
@@ -147,7 +154,7 @@ export default function OrdersHistoryForAdmin() {
                       hover
                       role="checkbox"
                       tabIndex={-1}
-                      key={row.orderId}
+                      key={typeof row.orderId === "string" ?  row.orderId : null}
                     >
                       <TableCell component="th" id={labelId} scope="row">
                         {row.orderId}

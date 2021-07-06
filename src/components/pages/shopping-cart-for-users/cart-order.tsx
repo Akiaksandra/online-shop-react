@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button } from '@material-ui/core';
 import useStyles from './use-styles';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { clearCurrentOrderAction, updateOrder } from '../../../store/users-reducer/users-actions';
 import { useAppSelector } from '../../../types/hooks';
 import Spinner from '../../spinner';
@@ -15,13 +15,13 @@ const CartOrder: React.FC = () => {
   if(currentOrder === null) return <Spinner />
   const { orderDileviryInfo: { deliveryType, town, street, house, flat, floor, phone, initials, comment }, orderPrice, _id } = currentOrder;
 
-  const handleReturnToCart = () => {
+  const handleReturnToCart = (): void => {
     dispatch(clearCurrentOrderAction());
   }
 
-  const handlePay = () => {
+  const handlePay = (): void => {
     const newData = { orderStatus: "in transit"};
-    dispatch(updateOrder(JSON.stringify(newData), currentOrder ? currentOrder._id : "", currentUser ? currentUser._id : ""))
+    dispatch(updateOrder(JSON.stringify(newData), currentOrder._id, currentUser ? currentUser._id : ""))
     dispatch(clearCurrentOrderAction());
   }
 

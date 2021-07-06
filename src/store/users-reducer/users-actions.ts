@@ -1,7 +1,7 @@
 import { getResource, postResource, updateResourceId } from '../../server';
 
 import { ICurrentUser, UserCart, OrdersHistory, Order, AllProducts } from '../../types/store-types';
-import { FetchErrorAction, FetchStartAction, FetchUserSuccessAction, FetchUserCartSuccessAction, FetchOrdersHistorySuccessAction, SetCurrentOrderSuccessAction, ClearUsersErrorAction, ClearOrdersHistoryAction, LogOutAction, ClearCurrentOrderAction, UserActionTypes, UsersTypesNames } from '../../types/action-types';
+import { FetchErrorAction, FetchStartAction, FetchUserSuccessAction, FetchUserCartSuccessAction, FetchOrdersHistorySuccessAction, SetCurrentOrderSuccessAction, ClearUsersErrorAction, ClearOrdersHistoryAction, LogOutAction, ClearCurrentOrderAction, UsersTypesNames } from '../../types/action-types';
 import { UsersThunkType } from '../../types/thunk-types';
 
 const fetchStartAction = (payload: string = ""): FetchStartAction => ({ type: UsersTypesNames.FETCH_START_USER, payload });
@@ -91,7 +91,7 @@ const createUserCart = (id: string): UsersThunkType => {
   }
 }
 
-export const createNewOrder = (data: Order): UsersThunkType => {
+export const createNewOrder = (data: Order | string): UsersThunkType => {
   console.log('data: ', data);
   return async (dispatch) => {
     dispatch(fetchStartAction());

@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import styles from './styles.module.scss';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import { InputLabel, FormControl, Select, MenuItem, Grid, Card, IconButton } from '@material-ui/core';
 import { fetchProducts, sortProductsAction, clearProductsErrorAction } from '../../../store/product-reducer/product-actions';
@@ -12,7 +12,6 @@ import ErrorIndicator from '../../error-indicator';
 import Navigation from '../../navigation';
 import { useAppSelector } from '../../../types/hooks';
 import { AllProducts, IProduct } from '../../../types/store-types';
-// import { fetchAllUsers } from '../../../store/users-reducer/users-actions';
 
 const ProductsPageForUsers: React.FC = () => {
 
@@ -37,8 +36,7 @@ const ProductsPageForUsers: React.FC = () => {
     const hasData = (): number => {
       if (userCart) {
         return userCart.products.length > 0 ? 
-        // @ts-ignore
-          userCart.products.reduce((acc: number, el: IProduct) => { return el._id === newItem._id ? acc = el.count + 1 : acc}, 1) 
+          userCart.products.reduce((acc: number, el: IProduct) => { return el._id === newItem._id ? acc = (el.count ? el.count : 0) + 1 : acc}, 1) 
           : 1 
       } else {
         return 1;
@@ -67,7 +65,7 @@ const ProductsPageForUsers: React.FC = () => {
               <div className={styles.info}>
               <div className={styles.desc}>
                   <span>Цена {item.price}р.</span>
-                  <a href='/' onClick={(e) => handleClick(e, item._id ? item._id : "")}>Подробнее...</a>
+                  <a href='/' onClick={(e) => handleClick(e, item._id)}>Подробнее...</a>
                 </div>
                 {isLogin ? 
                 <IconButton aria-label="add" className={styles.button} onClick={() => handleAddToCart(item)}>

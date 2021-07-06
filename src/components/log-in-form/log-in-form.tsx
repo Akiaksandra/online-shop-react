@@ -4,7 +4,7 @@ import { Button } from '@material-ui/core';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import FormikControl from '../formik-control';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { checkEmailAndPassword } from '../../store/users-reducer/users-actions';
 import LoadingModal from '../modal/loading-modal';
 import SuccessModal from '../modal/success-modal';
