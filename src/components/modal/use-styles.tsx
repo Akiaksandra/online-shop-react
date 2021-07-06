@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
   },
   dialog: {
     margin: "0 auto",
-    flex: "none",
+    flex: "none !important" ,
     padding: "0",
   }
 }));
