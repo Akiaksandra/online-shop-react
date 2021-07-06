@@ -13,6 +13,7 @@ import ErrorModal from '../modal/error-modal';
 import { useAppSelector } from '../../types/hooks';
 import { IProduct, NewProduct } from '../../types/store-types';
 import { ArrType } from '../../types/types';
+import { closeModalAction } from '../../store/modal-reducer/modal-actions';
 
 const initialValues: NewProduct = {
   title: '',
@@ -77,10 +78,15 @@ const NewProductForm: React.FC = () => {
     dispatch(deleteCurrentProduct())
   }
 
+  const handleClose = (): void => {
+    dispatch(closeModalAction())
+    if (aim === "editProduct") dispatch(deleteCurrentProduct())
+  }
+
   let onSubmit:(values: NewProduct | IProduct, onSubmitProp: any) => Promise<void> =  onSubmitFormNewProduct; 
   
   let currentValues = initialValues;
-
+  
   if ( currentProduct ) {
     onSubmit = onSubmitFormEditProduct;
     currentValues = currentProduct;
@@ -95,7 +101,7 @@ const NewProductForm: React.FC = () => {
   // if (aim === "newProduct") return <SuccessModal text = {"Товар успешно добавлен!"}/>
 
   if (errorProducts) return <ErrorModal errorText = {errorProducts} />
-
+  console.log(currentValues)
   return (
     <div className={classes.paper} style = {{maxWidth: "500px", height: "100%", maxHeight: "100vh"}}>
     <h2 className ="transition-modal-title"> {aim === "newProduct" ? "Добавление нового товара" : "Редактирование товара" }</h2>
@@ -156,9 +162,12 @@ const NewProductForm: React.FC = () => {
               <Button variant="contained" color="primary" className={classes.button} type="submit" disabled={!formik.isValid}>
                 Подтвердить
               </Button>
-              <Button className={classes.button} color="primary" variant="outlined" type="reset" style={{backgroundColor: "#fff"}} >
+              {aim === "newProduct" ? <Button className={classes.button} color="primary" variant="outlined" type="reset" style={{backgroundColor: "#fff"}} >
               Очистить форму
-            </Button>    
+            </Button> : ""}  
+            <Button variant="contained" color="primary" className={classes.button} onClick={handleClose}>
+                Отменить
+            </Button>  
           </Form>  
           )
         }}

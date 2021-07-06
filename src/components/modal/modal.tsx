@@ -8,6 +8,7 @@ import LogOutForm from '../log-out-form';
 import NewProductForm from '../new-product-form';
 import DeleteProductFunc from '../delete-product';
 import { useAppSelector } from '../../types/hooks';
+import { deleteCurrentProduct } from '../../store/product-reducer/product-actions';
 
 const TransitionsModal: React.FC = () => {
 
@@ -20,6 +21,7 @@ const TransitionsModal: React.FC = () => {
   
   const handleClose = (): void => {
     dispatch(closeModalAction())
+    if (aim === "editProduct") dispatch(deleteCurrentProduct())
   }
 
   const findCurrentComponent = (): JSX.Element | null => {
