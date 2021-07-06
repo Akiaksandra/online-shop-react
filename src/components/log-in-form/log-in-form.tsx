@@ -35,7 +35,6 @@ const LogInForm: React.FC = () => {
   const { currentUser, loading, errorUsers } = useAppSelector(state => state.users);
 
   const onSubmit = (values: LogInTypes, onSubmitProp: any): void => {
-    console.log(values)
     const {email, password } = values;
     dispatch(checkEmailAndPassword(email, password));
     onSubmitProp.setSubmitting(false);
