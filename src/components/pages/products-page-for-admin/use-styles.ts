@@ -29,8 +29,8 @@ const useStyles = makeStyles((theme) => ({
   },
   lastColumn: {
     width: "100px",
-    paddingLeft: "0",
-    paddingRight: "0",
+    paddingLeft: "0 !important",
+    paddingRight: "0 !important",
   }
 }));
 

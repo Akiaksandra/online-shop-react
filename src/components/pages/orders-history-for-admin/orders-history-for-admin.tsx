@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import useStyles from './use-styles';
+import useStyles from '../products-page-for-admin/use-styles';
 import {Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow, TableSortLabel, Paper} from '@material-ui/core';
 import { useDispatch } from 'react-redux';
 import { fetchAllUOrdersHistory } from '../../../store/users-reducer/users-actions';
