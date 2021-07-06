@@ -58,7 +58,7 @@ const ProductPage: React.FC<any> = ({match}) => {
     <div className="itemPageContainer">
       <div className="item">
         <div className="content">
-          <img src={currentProduct && currentProduct.img} alt="img" className="image"/>
+          <img src={currentProduct ? currentProduct.img : ""} alt="img" className="image"/>
           <div className="info">
             <div className="header">
               <span className="title">{currentProduct && currentProduct.title}</span>
