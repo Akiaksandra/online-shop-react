@@ -1,5 +1,4 @@
 import React from 'react';
-import { Button } from '@material-ui/core';
 import { closeModalAction } from '../../store/modal-reducer/modal-actions';
 import { clearUsersErrorAction } from '../../store/users-reducer/users-actions';
 import { clearProductsErrorAction } from '../../store/product-reducer/product-actions';

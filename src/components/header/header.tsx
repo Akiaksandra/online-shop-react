@@ -16,7 +16,7 @@ import ButtonComponent from '../button';
 
 const Header: React.FC = () => {
 
-  let location = useLocation();
+  const location = useLocation();
 
   const dispatch = useDispatch();
 

@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import useStyles from '../modal/use-styles';
-import { Button } from '@material-ui/core';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import FormikControl from '../formik-control';
