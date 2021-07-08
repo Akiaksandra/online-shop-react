@@ -6,6 +6,7 @@ import { useDispatch } from 'react-redux';
 import { fetchUserCart, fetchUserOrdersHistory } from '../../store/users-reducer/users-actions';
 import { clearFilters } from '../../store/product-reducer/product-actions';
 import { useAppSelector } from '../../types/hooks';
+import ButtonComponent from '../button';
 
 const SuccessModal: React.FC<{ text: string, needCartRequest?: boolean, needClearFilters?: boolean }> = ({ text, needCartRequest = false, needClearFilters = false }) => {
 
@@ -25,9 +26,7 @@ const SuccessModal: React.FC<{ text: string, needCartRequest?: boolean, needClea
     <div className={classes.paper}>
     <h2 className ="transition-modal-title">{text}</h2>
     <div className ="transition-modal-content">
-      <Button variant="contained" color="primary" className={classes.button} onClick={handleCloseModal}>
-        Окей
-      </Button>
+      <ButtonComponent className={classes.button} onClick={handleCloseModal} text="Окей" />
     </div>
   </div>
   )

@@ -1,9 +1,10 @@
 import React from 'react';
 import './shopping-cart.scss';
 import './shopping-cart.scss';
-import { Checkbox, Button } from '@material-ui/core';
+import { Checkbox } from '@material-ui/core';
 import useStyles from './use-styles';
 import { IProduct } from '../../../types/store-types';
+import ButtonComponent from '../../button';
 
 type PropsType = {
   array: IProduct[], 
@@ -58,27 +59,11 @@ const CreateCartList: React.FC<PropsType> = (props) => {
             onChange={handleSelectAllClick}
           />
           <span>Выбрать все</span>
-          <Button className={classes.buttonWhite} variant="outlined" onClick={handleDelete}>
-            Удалить
-          </Button>    
+          <ButtonComponent className={classes.buttonWhite} variant="outlined" onClick={handleDelete} text="Удалить" disabled={ !(selected.length > 0)}/>  
           </div>
         </React.Fragment>
         : <h3 className="empty-cart">В корзине сейчас пусто...</h3>
       }
-      {/* <ul className="cart-list">
-        {newArray}
-      </ul>
-      <div className="cart-actions">
-        <Checkbox
-          color="primary"
-          checked={array.length > 0 && selected.length === array.length}
-          onChange={handleSelectAllClick}
-        />
-        <span>Выбрать все</span>
-        <Button className={classes.buttonWhite} variant="outlined" onClick={handleDelete}>
-          Удалить
-        </Button>    
-      </div> */}
     </div>
     
   );

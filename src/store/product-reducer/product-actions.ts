@@ -7,19 +7,19 @@ import { ClearFiltersAction, ClearProductsErrorAction, DeleteCurrentProduct, Fet
 import { ProductsThunkType } from '../../types/thunk-types';
 import { UpdateData } from '../../types/server-types';
 
-const fetchStartAction = (payload: string = ""): FetchStartAction  => ({ type: ProductTypesNames.FETCH_START_PRODUCT, payload });
+export const fetchStartAction = (payload: string = ""): FetchStartAction  => ({ type: ProductTypesNames.FETCH_START_PRODUCT, payload });
 
-const fetchErrorAction = (payload: string =""): FetchErrorAction => {
+export const fetchErrorAction = (payload: string =""): FetchErrorAction => {
   return ({ type: ProductTypesNames.FETCH_ERROR_PRODUCT, payload })
 }
 
 export const clearProductsErrorAction = (): ClearProductsErrorAction => ({ type: ProductTypesNames.CLEAR_PRODUCTS_ERROR });
 
-const clearFiltersAction = (): ClearFiltersAction => ({ type: ProductTypesNames.CLEAR_FILTERS_ACTION });
+export const clearFiltersAction = (): ClearFiltersAction => ({ type: ProductTypesNames.CLEAR_FILTERS_ACTION });
 
 export const deleteCurrentProduct = (): DeleteCurrentProduct => ({ type: ProductTypesNames.DELETE_CURRENT_PRODUCT });
 
-const fetchProductsSuccessAction = (payload: AllProducts): FetchProductsSuccessAction => ({ type: ProductTypesNames.FETCH_PRODUCTS_SUCCESS, payload });
+export const fetchProductsSuccessAction = (payload: AllProducts): FetchProductsSuccessAction => ({ type: ProductTypesNames.FETCH_PRODUCTS_SUCCESS, payload });
 
 export const fetchProductSuccessAction = (payload: IProduct): FetchProductSuccessAction => ({ type: ProductTypesNames.FETCH_PRODUCT_SUCCESS, payload });
 

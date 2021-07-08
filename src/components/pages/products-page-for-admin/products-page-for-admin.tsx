@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import useStyles from './use-styles';
-import {Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow, TableSortLabel, Paper, IconButton, Button} from '@material-ui/core';
+import {Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow, TableSortLabel, Paper, IconButton } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 import { useDispatch } from 'react-redux';
@@ -11,6 +11,7 @@ import ErrorIndicator from '../../error-indicator';
 import { useAppSelector } from '../../../types/hooks';
 import { IProduct } from '../../../types/store-types';
 import { DataType, HeadCells, OrderType, PropsTypeForTable } from '../../../types/types';
+import ButtonComponent from '../../button';
 
 function createData( { _id, title, price, category, manufacturer, quantity}: IProduct): DataType {
   const categories = category.join(", ");
@@ -151,9 +152,7 @@ export default function ProductsPageForAdmin(): JSX.Element {
 
   return (
     <div className={classes.root}>
-      <Button variant="contained" color="primary" className={classes.button} onClick={openNewProductForm}>
-        Создать товар
-      </Button>
+      <ButtonComponent className={classes.button} onClick={openNewProductForm} text="Создать товар" />
       <Paper className={classes.paper}>
         <TableContainer>
           <Table

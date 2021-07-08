@@ -1,6 +1,5 @@
 import React from 'react';
 import useStyles from '../modal/use-styles';
-import { Button } from '@material-ui/core';
 import { closeModalAction } from '../../store/modal-reducer/modal-actions';
 import { deleteProductAction } from '../../store/product-reducer/product-actions';
 import { deleteCurrentProduct } from '../../store/product-reducer/product-actions';
@@ -9,6 +8,7 @@ import SuccessModal from '../modal/success-modal';
 import ErrorModal from '../modal/error-modal';
 import { useAppSelector } from '../../types/hooks';
 import { useDispatch } from 'react-redux';
+import ButtonComponent from '../button';
 
 const DeleteProductFunc = () => {
   
@@ -18,6 +18,7 @@ const DeleteProductFunc = () => {
   const dispatch = useDispatch();
 
   const handleCloseModal = (): void => {
+    dispatch(deleteCurrentProduct())
     dispatch(closeModalAction());
   } 
 
@@ -36,12 +37,8 @@ const DeleteProductFunc = () => {
     <div className={classes.paper}>
     <h2 className ="transition-modal-title">Вы уверены, что хотите удалить товар?</h2>
     <div className ="transition-modal-content">
-      <Button variant="contained" color="primary" className={classes.button} onClick={handleCloseModal}>
-        Отменить
-      </Button>
-      <Button variant="contained" color="secondary" className={classes.button} onClick={handleDeleteItem}>
-        Удалить
-      </Button>
+      <ButtonComponent className={classes.button} onClick={handleCloseModal} text="Отменить" />
+      <ButtonComponent color="secondary" className={classes.button} onClick={handleDeleteItem} text="Удалить" />
     </div>
   </div>
   )

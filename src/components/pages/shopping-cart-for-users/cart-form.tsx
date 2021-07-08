@@ -1,12 +1,13 @@
 import React from 'react';
 import { Formik, Form } from 'formik';
-import { FormControl, Button } from '@material-ui/core';
+import { FormControl } from '@material-ui/core';
 import useStyles from './use-styles';
 import './shopping-cart.scss';
 import * as Yup from 'yup';
 import FormikControl from '../../formik-control';
 import { ArrType } from '../../../types/types';
 import { OrderDileviryInfo } from '../../../types/store-types';
+import ButtonComponent from '../../button';
 
 const radioOptions: ArrType = [
   {value: "post", label: "Почтой"},
@@ -145,13 +146,9 @@ const CartForm: React.FC<{commonCount: number, commonPrice: number, onSubmitForm
               inputType = "text"
             />
 
-            <Button className={classes.button} color="primary" variant="contained" type="submit" 
-              disabled={!(formik.isValid && commonCount > 0 && !formik.isSubmitting)}>
-              Оформить заказ
-            </Button>
-            <Button className={classes.button} color="primary" variant="outlined" type="reset" style={{backgroundColor: "#fff"}} >
-              Очистить форму
-            </Button>       
+            <ButtonComponent className={classes.button} type="submit" disabled={!(formik.isValid && commonCount > 0 && !formik.isSubmitting)} text="Оформить заказ" />        
+            <ButtonComponent className={classes.button} variant="outlined" type="reset" style={{backgroundColor: "#fff"}} text="Очистить форму" />
+                  
           </FormControl>
         </Form>
           )

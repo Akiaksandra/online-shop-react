@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './styles.module.scss';
 import './header.scss'
-import { Button, TextField,  InputAdornment } from '@material-ui/core';
+import { TextField,  InputAdornment } from '@material-ui/core';
 import { Search } from '@material-ui/icons';
 import Filters from '../filters-for-user';
 import { Link } from 'react-router-dom';
@@ -11,6 +11,7 @@ import { filterProductsAction } from '../../store/product-reducer/product-action
 import { useLocation } from 'react-router-dom';
 import { useAppSelector } from '../../types/hooks';
 import { ModalThunkType } from '../../types/thunk-types';
+import ButtonComponent from '../button';
 
 
 const Header: React.FC = () => {
@@ -39,24 +40,16 @@ const Header: React.FC = () => {
   const openLogout = (): ModalThunkType => dispatch(openModal("logout"))
 
   const currentButton = !isLogin ? 
-        <Button variant="contained" color="primary" onClick={openLogin}>
-          Войти
-        </Button> :
-        <Button variant="contained" color="primary" onClick={openLogout}>
-          Выйти
-        </Button>
+        <ButtonComponent onClick={openLogin} text="Войти" /> :
+        <ButtonComponent  onClick={openLogout} text="Выйти" /> 
 
   const needCart = (!isAdmin && isLogin) ?         
                       <Link to="/cart"> 
-                      <Button variant="contained" color="primary" className={setClassName('/cart')}>
-                          Корзина    
-                      </Button>
-                    </Link> : null
+                        <ButtonComponent className={setClassName('/cart')} text="Корзина" />
+                      </Link> : null
   const needHistoryOrder = (isLogin || isAdmin) ? 
                     <Link to="/orders-history"> 
-                      <Button variant="contained" color="primary" className={setClassName('/orders-history')}>          
-                        Заказы
-                      </Button>
+                      <ButtonComponent className={setClassName('/orders-history')} text="Заказы" />
                   </Link> : null;
   const needFilters = (!isAdmin && location.pathname === "/products" ) ? <Filters /> : null;
   return (
@@ -81,9 +74,7 @@ const Header: React.FC = () => {
       
       <div className={styles.headerTabs}>
         <Link to="/products"> 
-          <Button variant="contained" color="primary" className={setClassName('/products')}>
-            Товары
-          </Button>
+          <ButtonComponent className={setClassName('/products')} text="Товары" />
         </Link>
         {needHistoryOrder}
         {needCart}

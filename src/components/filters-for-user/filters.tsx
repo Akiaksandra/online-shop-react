@@ -1,9 +1,10 @@
 import React from 'react';
-import {Button, Switch, FormGroup,  FormControlLabel, Checkbox} from '@material-ui/core';
+import { Switch, FormGroup,  FormControlLabel, Checkbox} from '@material-ui/core';
 import './filters.scss';
 import { useDispatch } from 'react-redux';
 import { filterProductsAction } from '../../store/product-reducer/product-actions'
 import { useAppSelector } from '../../types/hooks';
+import ButtonComponent from '../button';
 
 const manufactureSelect = [
   {value: "samsung", label: "Samsung"},
@@ -54,9 +55,7 @@ const Filters:React.FC = () => {
           <input className="filter-price-input" type="number" min="1" onBlur={handleChangeMaxPrice}></input>
         </div>
         <div className = "manufactures-container">
-          <Button variant="contained" color="primary">
-            Производитель
-          </Button>
+          <ButtonComponent text="Производитель" />
           <div className = "manufactures-list">
             <FormGroup>
               {

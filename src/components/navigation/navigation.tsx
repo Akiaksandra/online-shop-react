@@ -1,11 +1,11 @@
 import React  from 'react';
 import styles from './styles.module.scss';
-import { Button } from '@material-ui/core';
 import { Home } from '@material-ui/icons';
 import { useDispatch } from 'react-redux';
 import { filterProductsAction } from '../../store/product-reducer/product-actions'
 import { useAppSelector } from '../../types/hooks';
 import { ArrType } from '../../types/types';
+import ButtonComponent from '../button';
 
 const Navigation: React.FC = () => {
 
@@ -25,9 +25,7 @@ const Navigation: React.FC = () => {
         const classNameEl = category === element.value ? styles.activeButton : undefined;
         const startIconEl = element.img ? <Home /> : null
         return (
-        <Button variant="contained" color="primary" key={element.value} value={element.value} startIcon={startIconEl} className={classNameEl} onClick={hadleChangeFilterValue}>
-            {element.label}
-        </Button>
+          <ButtonComponent className={classNameEl} onClick={hadleChangeFilterValue} key={element.value} value={element.value} startIcon={startIconEl} text={element.label} />
         )
       })
       return items;
