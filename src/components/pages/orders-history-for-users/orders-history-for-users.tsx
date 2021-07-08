@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import './orders-history-for-users.scss';
 import { useDispatch } from 'react-redux';
-import { Button } from '@material-ui/core';
 import { clearUsersErrorAction } from '../../../store/users-reducer/users-actions';
 import Spinner from '../../spinner';
 import ErrorIndicator from '../../error-indicator';
@@ -9,6 +8,7 @@ import { updateOrder } from '../../../store/users-reducer/users-actions';
 import { useAppSelector } from '../../../types/hooks';
 import { OrdersHistory } from '../../../types/store-types';
 import { UsersThunkType } from '../../../types/thunk-types';
+import ButtonComponent from '../../button';
 
 const OrdersHistoryForUsers: React.FC = () => {
 
@@ -51,9 +51,7 @@ const OrdersHistoryForUsers: React.FC = () => {
   const createCurrentButton = (status: string, id: string): JSX.Element => {
     const buttonText = createButtonText(status);
     const handleFunc = () => dispatch(createHandleFunc(status, id))
-    return (<Button variant="contained" color="primary" onClick={handleFunc} disabled={ status === "delivered" }>
-              {buttonText}
-            </Button>)
+    return (<ButtonComponent onClick={handleFunc} disabled={ status === "delivered" } text={buttonText} />)
   }
 
   const createItems = (array: OrdersHistory): JSX.Element[] => {

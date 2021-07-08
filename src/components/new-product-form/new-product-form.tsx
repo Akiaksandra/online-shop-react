@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import useStyles from '../modal/use-styles';
-import { Button } from '@material-ui/core';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import FormikControl from '../formik-control';
@@ -14,6 +13,7 @@ import { useAppSelector } from '../../types/hooks';
 import { IProduct, NewProduct } from '../../types/store-types';
 import { ArrType } from '../../types/types';
 import { closeModalAction } from '../../store/modal-reducer/modal-actions';
+import ButtonComponent from '../button';
 
 const initialValues: NewProduct = {
   title: '',
@@ -159,15 +159,11 @@ const NewProductForm: React.FC = () => {
                 inputType="file"
                 label="File"
               />             
-              <Button variant="contained" color="primary" className={classes.button} type="submit" disabled={!formik.isValid}>
-                Подтвердить
-              </Button>
-              {aim === "newProduct" ? <Button className={classes.button} color="primary" variant="outlined" type="reset" style={{backgroundColor: "#fff"}} >
-              Очистить форму
-            </Button> : ""}  
-            <Button variant="contained" color="primary" className={classes.button} onClick={handleClose}>
-                Отменить
-            </Button>  
+            <ButtonComponent className={classes.button} type="submit" disabled={!formik.isValid} text="Подтвердить"/>
+              {aim === "newProduct" ? 
+              <ButtonComponent variant="outlined" className={classes.button} type="reset" text="Очистить форму" style={{backgroundColor: "#fff"}}/>
+                : ""}  
+            <ButtonComponent className={classes.button} onClick={handleClose} text="Отменить" />
           </Form>  
           )
         }}

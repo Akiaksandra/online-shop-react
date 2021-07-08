@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
     margin: "15px auto 0",
   },
   buttonWhite: {
-    color: "#00BCD4",
+    color: "#c33434",
     backgroundColor: "white",
     marginLeft: "15px",
   }

@@ -1,6 +1,5 @@
 import React from 'react';
 import useStyles from '../modal/use-styles';
-import { Button } from '@material-ui/core';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import FormikControl from '../formik-control';
@@ -10,6 +9,7 @@ import LoadingModal from '../modal/loading-modal';
 import SuccessModal from '../modal/success-modal';
 import ErrorModal from '../modal/error-modal';
 import { useAppSelector } from '../../types/hooks';
+import ButtonComponent from '../button';
 
 interface LogInTypes {
   email: string,
@@ -75,9 +75,7 @@ const LogInForm: React.FC = () => {
                 inputType="password"
                 label="Password"
               />
-              <Button variant="contained" color="primary" className={classes.button} type="submit" disabled={!formik.isValid}>
-                Войти
-              </Button>
+              <ButtonComponent className={classes.button} type="submit" disabled={!formik.isValid} text="Войти" />
           </Form>  
           )
         }}

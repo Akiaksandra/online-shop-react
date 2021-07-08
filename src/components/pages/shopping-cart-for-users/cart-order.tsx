@@ -1,10 +1,10 @@
 import React from 'react';
-import { Button } from '@material-ui/core';
 import useStyles from './use-styles';
 import { useDispatch } from 'react-redux';
 import { clearCurrentOrderAction, updateOrder } from '../../../store/users-reducer/users-actions';
 import { useAppSelector } from '../../../types/hooks';
 import Spinner from '../../spinner';
+import ButtonComponent from '../../button';
 
 const CartOrder: React.FC = () => {
   const classes = useStyles();
@@ -48,12 +48,8 @@ const CartOrder: React.FC = () => {
         <span className="cart-sidebar-details"><strong>Телефон</strong> {phone}</span>
         {comment ? <span className="cart-sidebar-details"><strong>Комментарии</strong> {comment}</span> : null}
       </div>
-        <Button className={classes.button} color="primary" variant="contained" onClick={handlePay}>
-            Оплатить
-        </Button>
-        <Button className={classes.button} color="primary" variant="outlined" style={{backgroundColor: "#fff"}} onClick={handleReturnToCart} >
-          Вернуться в корзину
-        </Button>     
+        <ButtonComponent className={classes.button} onClick={handlePay} text="Оплатить"/>
+        <ButtonComponent className={classes.button} variant="outlined" style={{backgroundColor: "#fff"}} onClick={handleReturnToCart} text="Вернуться в корзину"/>
     </div> 
   )
 }

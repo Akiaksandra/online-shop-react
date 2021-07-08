@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import './product-page.scss';
-import { Button } from '@material-ui/core';
 import { useDispatch} from 'react-redux';
 import { fetchProduct, deleteCurrentProduct, clearProductsErrorAction } from '../../../store/product-reducer/product-actions';
 import { updateUserCart } from '../../../store/users-reducer/users-actions';
@@ -9,6 +8,7 @@ import Spinner from '../../spinner';
 import ErrorIndicator from '../../error-indicator';
 import { useAppSelector } from '../../../types/hooks';
 import { IProduct } from '../../../types/store-types';
+import ButtonComponent from '../../button';
 
 const ProductPage: React.FC<any> = ({match}) => {
 
@@ -72,9 +72,7 @@ const ProductPage: React.FC<any> = ({match}) => {
               </div>
               <div className="price">
                 <span>{currentProduct && currentProduct.price}р</span>
-                <Button variant="contained" color="primary"onClick={currentOnClick}>
-                  В корзину
-                </Button>
+                <ButtonComponent onClick={currentOnClick} text="В корзину"/>
               </div>
             </div>
             <div className="manufactureAndCountry">

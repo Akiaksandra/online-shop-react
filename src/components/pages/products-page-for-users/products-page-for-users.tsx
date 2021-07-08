@@ -71,7 +71,6 @@ const ProductsPageForUsers: React.FC = () => {
                 <IconButton aria-label="add" className={styles.button} onClick={() => handleAddToCart(item)}>
                   <AddShoppingCartIcon fontSize="inherit"/>
                 </IconButton> : null}
-                
               </div>
             </Card>
           </Grid>

@@ -1,5 +1,22 @@
 import { IFilterParams,IProducts } from '../../types/store-types'
 import { ProductsActionTypes, ProductTypesNames } from '../../types/action-types';
+// import { fetchStartAction, fetchErrorAction, clearProductsErrorAction, clearFiltersAction, deleteCurrentProduct, fetchProductsSuccessAction, fetchProductSuccessAction, sortProductsAction, filterProductsAction} from '../product-reducer/product-actions'
+
+// const actions = {
+//   fetchStartAction: fetchStartAction,
+//   fetchErrorAction: fetchErrorAction,
+//   clearProductsErrorAction: clearProductsErrorAction,
+//   clearFiltersAction: clearFiltersAction,
+//   deleteCurrentProduct: deleteCurrentProduct,
+//   fetchProductsSuccessAction: fetchProductsSuccessAction,
+//   fetchProductSuccessAction: fetchProductSuccessAction,
+//   sortProductsAction: sortProductsAction,
+//   filterProductsAction: filterProductsAction,
+// }
+
+// type InferValueTypes<T> = T extends { [key: string]: infer U } ? U : never;
+
+// type ActionTypes = ReturnType<InferValueTypes<typeof actions>>
 
 const initFilters: IFilterParams = {
   category: "all",
