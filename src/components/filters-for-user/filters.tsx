@@ -55,7 +55,7 @@ const Filters:React.FC = () => {
           <input className="filter-price-input" type="number" min="1" onBlur={handleChangeMaxPrice}></input>
         </div>
         <div className = "manufactures-container">
-          <ButtonComponent text="Производитель" />
+          <ButtonComponent text="Производитель" style={{marginTop: "15px"}}/>
           <div className = "manufactures-list">
             <FormGroup>
               {
