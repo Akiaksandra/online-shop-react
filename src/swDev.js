@@ -1,6 +1,6 @@
 const webpush = require('web-push');
 
-export default function swDev()
+export default async function swDev()
 {
   function determineAppServerKey() {
     const vapidPublicKey = "BHMFiIOxOgzVXKq5POvI6BhfJ53bf1-jzNhDrt8Dbyp6feZod_AcPsWT4yL2l5psrZngzEjUVLT6wYV8QiNEEAA"; //webpush.generateVAPIDKeys().publicKey;
@@ -23,11 +23,11 @@ export default function swDev()
     return outputArray;
   }
   
-    let swUrl=  `${process.env.PUBLIC_URL}/sw.js`
-    navigator.serviceWorker.register(swUrl).then(async (response)=>{
+    let swUrl= `${process.env.PUBLIC_URL}/sw.js`
+    await navigator.serviceWorker.register(swUrl).then(async (response)=>{
 
-        const subscription = await response.pushManager.getSubscription();
-      response.pushManager.subscribe({
+        await response.pushManager.getSubscription();
+        response.pushManager.subscribe({
         userVisibleOnly: true,
         applicationServerKey: determineAppServerKey()
       });
