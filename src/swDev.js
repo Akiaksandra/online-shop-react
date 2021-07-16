@@ -23,7 +23,7 @@ export default async function swDev()
   //   return outputArray;
   // }
   if("serviceWorker" in navigator) {
-    let swUrl= `${process.env.PUBLIC_URL}/serviceWorker.js`
+    let swUrl= `${process.env.PUBLIC_URL}/sw.js`
     await navigator.serviceWorker.register(swUrl).then(async (response)=>{
       console.log("SW scope:", response.scope);
       //   await response.pushManager.getSubscription();
