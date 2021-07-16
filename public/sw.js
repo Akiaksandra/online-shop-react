@@ -2,7 +2,6 @@ const staticCacheName = 's-app-v3'
 const dynamicCacheName = 'd-app-v3'
 
 self.addEventListener("install", (event) => {
-    event.waitUntil(
         caches.open(staticCacheName).then((cache) => {
             cache.addAll([
               '/index.html',
@@ -22,7 +21,7 @@ self.addEventListener("install", (event) => {
                 '/logo192.png',
             ])
         })
-    )
+
 })
 
 self.addEventListener('activate', async event => {
