@@ -17,6 +17,7 @@ const AppRouter: React.FC = () => {
     <div>
       <Header />
       <Switch>
+        <Redirect from="/" to={RoutesTypesNames.PRODUCTS}/>
         {isAdmin && isLogin && adminRoutes.map(({ path, Component }) => (
           <Route path={path} component={Component} key={path} exact/>
         ))}
@@ -26,7 +27,7 @@ const AppRouter: React.FC = () => {
         {!isAdmin && !isLogin && guestRoutes.map(({ path, Component }) => (
           <Route path={path} component={Component} key={path} exact/>
         ))}
-        <Redirect from="/" to={RoutesTypesNames.PRODUCTS}/>
+        
         {/* <Route exact path="/">
             <Redirect to={RoutesTypesNames.PRODUCTS} />
         </Route>
