@@ -9,7 +9,7 @@ self.addEventListener("install", (event) => {
         // '/products',
         // '/orders-history',
         // '/cart',
-        '/static/js/main.c45b2fb6.chunk.js',
+        // './static/js/main.chunk.js',
         // './static/js/vendors~main.chunk.js',
         // './static/js/bundle.js',
         // './static/css/main.chunk.css',
@@ -20,6 +20,13 @@ self.addEventListener("install", (event) => {
         // './favicon.ico',
         // './manifest.json',
         // './logo192.png',
+
+        '/static/css/main.d74658ae.chunk.css',
+        '/static/js/2.92e12558.chunk.js',
+        '/static/js/main.c45b2fb6.chunk.js',
+        '/manifest.json',
+        'logo192.png',
+        
       ])
   })
   )
