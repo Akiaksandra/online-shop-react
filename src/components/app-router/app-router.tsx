@@ -5,7 +5,6 @@ import TransitionModal from '../modal';
 import { adminRoutes, userRoutes, guestRoutes } from './routes';
 import { useAppSelector } from '../../types/hooks';
 import { RoutesTypesNames } from '../../types/route-types';
-import ProductsPageForUsers from '../pages/products-page-for-users';
 
 
 const AppRouter: React.FC = () => {
@@ -27,11 +26,11 @@ const AppRouter: React.FC = () => {
         {!isAdmin && !isLogin && guestRoutes.map(({ path, Component }) => (
           <Route path={path} component={Component} key={path} exact/>
         ))}
-        {/* <Redirect from="/" to="/products"/> */}
-        <Route exact path="/">
+        <Redirect from="/" to={RoutesTypesNames.PRODUCTS}/>
+        {/* <Route exact path="/">
             <Redirect to={RoutesTypesNames.PRODUCTS} />
         </Route>
-        <Route path={RoutesTypesNames.PRODUCTS} component={ProductsPageForUsers} key={333}/>
+        <Route path={RoutesTypesNames.PRODUCTS} component={ProductsPageForUsers} key={333}/> */}
       </Switch>
       <TransitionModal />
     </div>

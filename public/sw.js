@@ -6,7 +6,7 @@ self.addEventListener("install", (event) => {
     caches.open(staticCacheName).then((cache) => {
       cache.addAll([
         '/',
-        // '/products',
+        '/products',
         // '/orders-history',
         // '/cart',
         // './static/js/main.chunk.js',
@@ -26,7 +26,7 @@ self.addEventListener("install", (event) => {
         '/static/js/main.c45b2fb6.chunk.js',
         '/manifest.json',
         'logo192.png',
-        
+
       ])
   })
   )
