@@ -25,7 +25,7 @@ const Navigation: React.FC = () => {
         const classNameEl = category === element.value ? styles.activeButton : undefined;
         const startIconEl = element.img ? <Home /> : null
         return (
-          <ButtonComponent className={classNameEl} onClick={hadleChangeFilterValue} key={element.value} value={element.value} startIcon={startIconEl} text={element.label} />
+          <ButtonComponent className={classNameEl} onClick={hadleChangeFilterValue} forKey={element.value} key={element.value} value={element.value} startIcon={startIconEl} text={element.label} />
         )
       })
       return items;
@@ -41,7 +41,7 @@ const Navigation: React.FC = () => {
   ])
 
   return (
-    <div className={styles.navContainer}>
+    <div className={styles.navContainer} >
         {buttons}
     </div>
   )

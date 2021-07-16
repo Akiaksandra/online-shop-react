@@ -40,16 +40,16 @@ const Header: React.FC = () => {
   const openLogout = (): ModalThunkType => dispatch(openModal("logout"))
 
   const currentButton = !isLogin ? 
-        <ButtonComponent onClick={openLogin} text="Войти" /> :
-        <ButtonComponent  onClick={openLogout} text="Выйти" /> 
+        <ButtonComponent onClick={openLogin} text="Войти" forKey="Войти"/> :
+        <ButtonComponent  onClick={openLogout} text="Выйти" forKey="Выйти"/> 
 
   const needCart = (!isAdmin && isLogin) ?         
                       <Link to="/cart"> 
-                        <ButtonComponent className={setClassName('/cart')} text="Корзина" />
+                        <ButtonComponent className={setClassName('/cart')} text="Корзина" forKey="Корзина"/>
                       </Link> : null
   const needHistoryOrder = (isLogin || isAdmin) ? 
                     <Link to="/orders-history"> 
-                      <ButtonComponent className={setClassName('/orders-history')} text="Заказы" />
+                      <ButtonComponent className={setClassName('/orders-history')} text="Заказы" forKey="Заказы"/>
                   </Link> : null;
   const needFilters = (!isAdmin && location.pathname === "/products" ) ? <Filters /> : null;
   return (
@@ -74,7 +74,7 @@ const Header: React.FC = () => {
       
       <div className={styles.headerTabs}>
         <Link to="/products"> 
-          <ButtonComponent className={setClassName('/products')} text="Товары" />
+          <ButtonComponent className={setClassName('/products')} text="Товары" forKey="Товары" />
         </Link>
         {needHistoryOrder}
         {needCart}

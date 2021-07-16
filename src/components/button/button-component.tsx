@@ -9,7 +9,7 @@ type ButtonProps = {
   onClick?: any,
   type?: "submit" | "reset",
   disabled?: boolean,
-  key?: string | number | undefined,
+  forKey?: string | number | undefined,
   value?: string | number | undefined,
   startIcon?: any,
   style?: any,
@@ -17,10 +17,10 @@ type ButtonProps = {
 
 const ButtonComponent: React.FC<ButtonProps> = (props) => {
 
-  const { text, variant = "contained", color = "primary", className, onClick, type, disabled, key, value, startIcon, style } = props;
+  const { text, variant = "contained", color = "primary", className, onClick, type, disabled, forKey, value, startIcon, style } = props;
 
   return (
-    <Button variant={variant} color={color} className={className} onClick={onClick} type={type} disabled={disabled} key={key} value={value} startIcon={startIcon} style={style}>
+    <Button variant={variant} color={color} className={className} onClick={onClick} type={type} key={forKey} disabled={disabled} value={value} startIcon={startIcon} style={style}>
         {text}
       </Button>
   )
