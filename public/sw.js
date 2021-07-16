@@ -80,6 +80,6 @@ async function networkFirst(request) {
   } catch (e) {
     const cached = await cache.match(request);
     console.log(cached, caches.match('/'))
-    return cached ?? await caches.match('/products')
+    return cached ?? await caches.match('/')
   }
 }
