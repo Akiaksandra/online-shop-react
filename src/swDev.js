@@ -1,4 +1,4 @@
-const webpush = require('web-push');
+// const webpush = require('web-push');
 
 export default async function swDev()
 {
@@ -22,10 +22,10 @@ export default async function swDev()
   //   }
   //   return outputArray;
   // }
-  
+  if("serviceWorker" in navigator) {
     let swUrl= `${process.env.PUBLIC_URL}/sw.js`
     await navigator.serviceWorker.register(swUrl).then(async (response)=>{
-
+      console.log("SW scope:", response.scope);
       //   await response.pushManager.getSubscription();
       //   response.pushManager.subscribe({
       //   userVisibleOnly: true,
@@ -33,4 +33,5 @@ export default async function swDev()
       // });
 
     }) 
+  }
 }

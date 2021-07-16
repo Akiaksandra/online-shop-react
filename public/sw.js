@@ -4,24 +4,24 @@ const dynamicCacheName = 'd-app-v3';
 self.addEventListener("install", (event) => {
   event.waitUntil(
     caches.open(staticCacheName).then((cache) => {
-                cache.addAll([
-                  './index.html',
-                  '/products',
-                  '/orders-history',
-                  '/cart',
-                  './static/js/main.chunk.js',
-                  './static/js/vendors~main.chunk.js',
-                  './static/js/bundle.js',
-                  './static/css/main.chunk.css',
-                  'https://fonts.gstatic.com/s/roboto/v27/KFOlCnqEu92Fr1MmEU9fBBc4.woff2',
-                  'https://fonts.gstatic.com/s/roboto/v27/KFOmCnqEu92Fr1Mu5mxKOzY.woff2',
-                  'https://fonts.gstatic.com/s/roboto/v27/KFOmCnqEu92Fr1Mu4mxK.woff2',
-                  'https://fonts.gstatic.com/s/roboto/v27/KFOlCnqEu92Fr1MmEU9fABc4EsA.woff2',
-                  './favicon.ico',
-                  './manifest.json',
-                  './logo192.png',
-                ])
-            })
+      cache.addAll([
+        './index.html',
+        '/products',
+        '/orders-history',
+        '/cart',
+        './static/js/main.chunk.js',
+        './static/js/vendors~main.chunk.js',
+        './static/js/bundle.js',
+        './static/css/main.chunk.css',
+        'https://fonts.gstatic.com/s/roboto/v27/KFOlCnqEu92Fr1MmEU9fBBc4.woff2',
+        'https://fonts.gstatic.com/s/roboto/v27/KFOmCnqEu92Fr1Mu5mxKOzY.woff2',
+        'https://fonts.gstatic.com/s/roboto/v27/KFOmCnqEu92Fr1Mu4mxK.woff2',
+        'https://fonts.gstatic.com/s/roboto/v27/KFOlCnqEu92Fr1MmEU9fABc4EsA.woff2',
+        './favicon.ico',
+        './manifest.json',
+        './logo192.png',
+      ])
+  })
   )
 })
 
