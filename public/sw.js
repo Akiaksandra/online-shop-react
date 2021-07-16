@@ -5,11 +5,11 @@ self.addEventListener("install", (event) => {
   event.waitUntil(
     caches.open(staticCacheName).then((cache) => {
       cache.addAll([
-        '/index.html',
+        '/',
         // '/products',
         // '/orders-history',
         // '/cart',
-        './static/js/main.chunk.js',
+        '/static/js/main.c45b2fb6.chunk.js',
         // './static/js/vendors~main.chunk.js',
         // './static/js/bundle.js',
         // './static/css/main.chunk.css',
@@ -37,7 +37,7 @@ self.addEventListener('activate', async event => {
 })
 
 self.addEventListener("fetch", (event) => {
-  console.log('active')
+  
     if (!navigator.onLine) {
         if (event.request.url === "http://localhost:3000/static/js/main.chunk.js") {
             event.waitUntil(

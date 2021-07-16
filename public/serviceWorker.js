@@ -1,5 +1,5 @@
 // Set this to true for production
-const doCache = false;
+const doCache = true;
 
 // Name our cache
 const CACHE_NAME = 'my-pwa-cache-v1';
