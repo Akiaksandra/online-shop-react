@@ -9,7 +9,7 @@ self.addEventListener("install", (event) => {
         // '/products',
         // '/orders-history',
         // '/cart',
-        // './static/js/main.chunk.js',
+        './static/js/main.chunk.js',
         // './static/js/vendors~main.chunk.js',
         // './static/js/bundle.js',
         // './static/css/main.chunk.css',
