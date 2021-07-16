@@ -4,8 +4,6 @@ import Header from '../header';
 import TransitionModal from '../modal';
 import { adminRoutes, userRoutes, guestRoutes } from './routes';
 import { useAppSelector } from '../../types/hooks';
-import { RoutesTypesNames } from '../../types/route-types';
-import ProductsPageForUsers from '../pages/products-page-for-users';
 
 
 const AppRouter: React.FC = () => {
@@ -18,8 +16,7 @@ const AppRouter: React.FC = () => {
     <div>
       <Header />
       <Switch>
-        
-          {isAdmin && isLogin && adminRoutes.map(({ path, Component }) => (
+        {isAdmin && isLogin && adminRoutes.map(({ path, Component }) => (
           <Route path={path} component={Component} key={path} exact/>
         ))}
         {!isAdmin && isLogin && userRoutes.map(({ path, Component }) => (
@@ -28,8 +25,7 @@ const AppRouter: React.FC = () => {
         {!isAdmin && !isLogin && guestRoutes.map(({ path, Component }) => (
           <Route path={path} component={Component} key={path} exact/>
         ))}  
-        <Route path='/' component={ProductsPageForUsers} />
-        <Redirect from="/" to={RoutesTypesNames.PRODUCTS}/>
+        <Redirect from="/" to={'/products'}/>
       </Switch>
       <TransitionModal />
     </div>

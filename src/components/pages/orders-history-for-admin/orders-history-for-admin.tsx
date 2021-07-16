@@ -101,7 +101,7 @@ export default function OrdersHistoryForAdmin() {
 
   useEffect(() => {
     dispatch(fetchAllUOrdersHistory())
-  }, []);
+  }, [dispatch]);
 
   const rows = ordersHistory ? ordersHistory.map(el => createData(el)) : [];
 

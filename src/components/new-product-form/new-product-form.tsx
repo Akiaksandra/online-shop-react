@@ -101,7 +101,7 @@ const NewProductForm: React.FC = () => {
   // if (aim === "newProduct") return <SuccessModal text = {"Товар успешно добавлен!"}/>
 
   if (errorProducts) return <ErrorModal errorText = {errorProducts} />
-  console.log(currentValues)
+  
   return (
     <div className={classes.paper} style = {{maxWidth: "500px", height: "100%", maxHeight: "100vh"}}>
     <h2 className ="transition-modal-title"> {aim === "newProduct" ? "Добавление нового товара" : "Редактирование товара" }</h2>

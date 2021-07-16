@@ -18,7 +18,7 @@ const OrdersHistoryForUsers: React.FC = () => {
 
   useEffect(() => {
     return () => {dispatch(clearUsersErrorAction())};
-  }, [])
+  }, [dispatch])
 
   const createButtonText = (status: string): string | null => {
     switch (status) {

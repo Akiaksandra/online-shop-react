@@ -22,7 +22,7 @@ const ShoppingCartForUsers: React.FC = () => {
       dispatch(clearUsersErrorAction())
       dispatch(clearCurrentOrderAction());
     };
-  }, [])
+  }, [dispatch])
 
   const handleClick = (event: React.MouseEvent<HTMLElement>, id: string): void => {
     const selectedIndex = selected.indexOf(id);

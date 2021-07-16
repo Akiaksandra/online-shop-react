@@ -107,7 +107,7 @@ export default function ProductsPageForAdmin(): JSX.Element {
   useEffect(() => {
     dispatch(clearFilters())
     return () => {dispatch(clearProductsErrorAction())}
-  }, []);
+  }, [dispatch]);
 
   const rows: DataType[] = allProducts.map(el => createData(el));
 

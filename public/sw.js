@@ -6,20 +6,11 @@ self.addEventListener("install", (event) => {
     caches.open(staticCacheName).then((cache) => {
       cache.addAll([
         '/',
-        '/products',
-        // '/orders-history',
-        // '/cart',
-        // './static/js/main.chunk.js',
-        // './static/js/vendors~main.chunk.js',
-        // './static/js/bundle.js',
-        // './static/css/main.chunk.css',
-        // 'https://fonts.gstatic.com/s/roboto/v27/KFOlCnqEu92Fr1MmEU9fBBc4.woff2',
-        // 'https://fonts.gstatic.com/s/roboto/v27/KFOmCnqEu92Fr1Mu5mxKOzY.woff2',
-        // 'https://fonts.gstatic.com/s/roboto/v27/KFOmCnqEu92Fr1Mu4mxK.woff2',
-        // 'https://fonts.gstatic.com/s/roboto/v27/KFOlCnqEu92Fr1MmEU9fABc4EsA.woff2',
-        // './favicon.ico',
-        // './manifest.json',
-        // './logo192.png',
+        './static/js/main.chunk.js',
+        './static/js/vendors~main.chunk.js',
+        './static/js/bundle.js',
+        './static/css/main.chunk.css',
+        './favicon.ico',
 
         '/static/css/main.d74658ae.chunk.css',
         '/static/js/2.92e12558.chunk.js',
@@ -32,16 +23,6 @@ self.addEventListener("install", (event) => {
   )
 })
 
-self.addEventListener('activate', async event => {
-
-  const cacheNames = await caches.keys()
-  await Promise.all(
-    cacheNames
-      .filter(name => name !== staticCacheName)
-      .filter(name => name !== dynamicCacheName)
-      .map(name => caches.delete(name))
-  )
-})
 
 self.addEventListener("fetch", (event) => {
   
@@ -79,7 +60,6 @@ async function networkFirst(request) {
     return response
   } catch (e) {
     const cached = await cache.match(request);
-    console.log(cached, caches.match('/'))
     return cached ?? await caches.match('/')
   }
 }

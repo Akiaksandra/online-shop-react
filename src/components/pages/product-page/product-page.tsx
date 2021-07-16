@@ -25,7 +25,7 @@ const ProductPage: React.FC<any> = ({match}) => {
       dispatch(deleteCurrentProduct()); 
       dispatch(clearProductsErrorAction())
     })
-  }, []);  
+  }, [dispatch, id]);  
 
   
   const handleAddToCart = (event: React.MouseEvent<HTMLButtonElement>): void => {

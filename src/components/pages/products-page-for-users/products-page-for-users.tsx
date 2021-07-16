@@ -52,7 +52,7 @@ const ProductsPageForUsers: React.FC = () => {
   useEffect(() => {
     dispatch(fetchProducts(sortParam, filterParams));
     return () => {dispatch(clearProductsErrorAction())}
-  }, [sortParam, minPrice, maxPrice, manufacturer, availability]);
+  }, [sortParam, minPrice, maxPrice, manufacturer, availability, dispatch, filterParams]);
 
 
   const createItems = (arr: AllProducts): JSX.Element[] => {
