@@ -1,7 +1,7 @@
 const staticCacheName = 's-app-v3'
 const dynamicCacheName = 'd-app-v3'
 
-self.addEventListener("install", (event) => {
+self.addEventListener("install", async (event) => {
   const cache = await caches.open(staticCacheName)
   await cache.addAll([
     '/',
