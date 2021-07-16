@@ -2,8 +2,10 @@ const staticCacheName = 's-app-v3'
 const dynamicCacheName = 'd-app-v3'
 
 self.addEventListener("install", (event) => {
+  console.log('install')
         caches.open(staticCacheName).then((cache) => {
             cache.addAll([
+              '/',
               '/index.html',
               '/products',
               '/orders-history',
